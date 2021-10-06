@@ -8,5 +8,8 @@ import com.paas.runup.dto.StudentDTO;
 
 @Repository
 public interface StudentDAO {
-	List<StudentDTO> getStudentList() throws Exception;
+	public void insertStudent (StudentDTO student);
+	public void updateStudent (StudentDTO student);
+	public void deleteStudent (StudentDTO student);
+	List<StudentDTO> getStudentList() throws Exception; 
 }

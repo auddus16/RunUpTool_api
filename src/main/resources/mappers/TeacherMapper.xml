@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paas.runup.dao.TeacherDAO"><!--namespace를 통해 DAO와 연결합니다. -->
+  		
+  <select id="getTeacherList" resultType="com.paas.runup.dto.TeacherDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
+						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->
+  	SELECT * FROM TEACHER
+  </select>
+  
+  <insert id="insertTeacher">
+  	INSERT INTO TEACHER
+  	VALUES (#{t_no},#{t_id},#{t_name},#{t_birth},#{t_gender},#{t_school},#{t_password},#{t_email})
+  </insert>
+  
+  <update id="updateTeacher">
+  	UPDATE TEACHER
+  	SET t_id=#{t_id},t_birth=#{t_birth},t_gender=#{t_gender}, t_school=#{t_school}, t_password=#{t_password}, t_email=#{t_email}
+  	WHERE t_name=#{t_name}
+  </update>
+  	
+  <delete id="deleteTeacher">
+        DELETE FROM TEACHER WHERE t_name = #{t_name}
+   </delete>
+
+	
+</mapper>

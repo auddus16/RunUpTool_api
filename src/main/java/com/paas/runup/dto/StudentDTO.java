@@ -25,7 +25,8 @@ public class StudentDTO {
 	S_EMAIL VARCHAR(20) UNIQUE KEY NOT NULL
 	 */
 	
-	private int s_no; 
+	private int s_no;
+	private String s_id;
 	private String s_name;
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd", timezone="Asia/Seoul")
 	private Date s_birth;
@@ -35,12 +36,19 @@ public class StudentDTO {
 	private int s_class;
 	private String s_password;
 	private String s_email;
+
 	
 	public int getS_no() {
 		return s_no;
 	}
 	public void setS_no(int s_no) {
 		this.s_no = s_no;
+	}
+	public String getS_id() {
+		return s_id;
+	}
+	public void setS_id(String s_id) {
+		this.s_id = s_id;
 	}
 	public String getS_name() {
 		return s_name;

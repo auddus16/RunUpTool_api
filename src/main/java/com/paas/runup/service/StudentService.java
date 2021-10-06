@@ -22,5 +22,18 @@ public class StudentService implements StudentDAO {
 		
 		return studentList;
 	}
+	@Override
+	public void insertStudent(StudentDTO student)/*회원가입*/ {
+		studentDAO.insertStudent(student);
+	}
+	
+	@Override
+	public void updateStudent(StudentDTO student) {
+		studentDAO.updateStudent(student);
+	}
+	@Override
+	public void deleteStudent(StudentDTO student)/*탈퇴*/ {
+		studentDAO.deleteStudent(student);
+	}
 
 }
