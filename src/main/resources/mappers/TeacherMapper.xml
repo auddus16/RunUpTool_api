@@ -16,12 +16,12 @@
   
   <update id="updateTeacher">
   	UPDATE TEACHER
-  	SET t_id=#{t_id},t_birth=#{t_birth},t_gender=#{t_gender}, t_school=#{t_school}, t_password=#{t_password}, t_email=#{t_email}
-  	WHERE t_name=#{t_name}
+  	SET t_id=#{t_id},t_name=#{t_name},t_birth=#{t_birth},t_gender=#{t_gender}, t_school=#{t_school}, t_password=#{t_password}, t_email=#{t_email}
+  	WHERE t_no=#{t_no}
   </update>
   	
   <delete id="deleteTeacher">
-        DELETE FROM TEACHER WHERE t_name = #{t_name}
+        DELETE FROM TEACHER WHERE t_no = #{t_no}
    </delete>
 
 	

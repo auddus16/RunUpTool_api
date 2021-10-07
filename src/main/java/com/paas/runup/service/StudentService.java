@@ -19,21 +19,23 @@ public class StudentService implements StudentDAO {
 	@Override
 	public List<StudentDTO> getStudentList() throws Exception {
 		List<StudentDTO> studentList= studentDAO.getStudentList();
-		
 		return studentList;
 	}
 	@Override
-	public void insertStudent(StudentDTO student)/*회원가입*/ {
-		studentDAO.insertStudent(student);
+	public int insertStudent(StudentDTO student) throws Exception/*회원가입*/ {
+		int insertStudent=studentDAO.insertStudent(student);
+		return insertStudent;
 	}
 	
 	@Override
-	public void updateStudent(StudentDTO student) {
-		studentDAO.updateStudent(student);
+	public int updateStudent(StudentDTO student) throws Exception{
+		int updateStudent=studentDAO.updateStudent(student);
+		return updateStudent;
 	}
 	@Override
-	public void deleteStudent(StudentDTO student)/*탈퇴*/ {
-		studentDAO.deleteStudent(student);
+	public int deleteStudent(int s_no)/*탈퇴*/ throws Exception {
+		int deleteStudent=studentDAO.deleteStudent(s_no);
+		return deleteStudent;
 	}
 
 }

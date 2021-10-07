@@ -16,12 +16,12 @@
   
   <update id="updateStudent">
   	UPDATE STUDENT 
-  	SET s_id=#{s_id},s_birth=#{s_birth},s_gender=#{s_gender}, s_school=#{s_school}, s_grade=#{s_grade}, s_class=#{s_class}, s_password=#{s_password}, s_email=#{s_email}
-  	WHERE s_name=#{s_name}
+  	SET s_id=#{s_id},s_name=#{s_name},s_birth=#{s_birth},s_gender=#{s_gender}, s_school=#{s_school}, s_grade=#{s_grade}, s_class=#{s_class}, s_password=#{s_password}, s_email=#{s_email}
+  	WHERE s_no=#{s_no}
   </update>
   	
   <delete id="deleteStudent">
-    DELETE FROM STUDENT WHERE s_name = #{s_name}
+    DELETE FROM STUDENT WHERE s_no = #{s_no}
    </delete>
 
 	

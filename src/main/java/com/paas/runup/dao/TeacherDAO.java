@@ -8,8 +8,8 @@ import com.paas.runup.dto.TeacherDTO;
 
 @Repository
 public interface TeacherDAO {
-	public void insertTeacher (TeacherDTO teacher);
-	public void updateTeacher (TeacherDTO teacher);
-	public void deleteTeacher (TeacherDTO teacher);
+	public int insertTeacher (TeacherDTO teacher) throws Exception;
+	public int updateTeacher (TeacherDTO teacher) throws Exception;
+	public int deleteTeacher (int t_no) throws Exception;
 	List<TeacherDTO> getTeacherList() throws Exception; 
 }
