@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paas.runup.dao.QuizDAO">
+	<select id="selectQuizList" resultType="com.paas.runup.dto.QuizDTO">
+  	SELECT * FROM QUIZ
+  </select>
+  
+  <select id="selectQuiz" resultType="com.paas.runup.dto.QuizDTO">
+  	SELECT * FROM QUIZ
+  	WHERE q_no=#{q_no}
+  </select>
+  
+  <insert id="insertQuiz">
+  	INSERT INTO QUIZ(c_no, q_ques, q_ans, q_type, q_timelimit)
+  	VALUES (#{c_no},#{q_ques},#{q_ans},#{q_type},#{q_timelimit})
+  </insert>
+  
+  <update id="updateQuiz">
+  	UPDATE QUIZ 
+  	SET c_no=#{c_no},q_ques=#{q_ques},q_ans=#{q_ans}, q_type=#{q_type}, q_timelimit=#{q_timelimit}
+  	WHERE q_no=#{q_no}
+  </update>
+  	
+  <delete id="deleteQuiz">
+    DELETE FROM QUIZ WHERE q_no = #{q_no}
+   </delete>
+  
+  
+	
+</mapper>
