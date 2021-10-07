@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paas.runup.dao.AttendDAO">
+  		
+  <select id="selectAttendByDate" parameterType="String" resultType="com.paas.runup.dto.AttendDTO"> 
+  	SELECT * FROM ATTEND 
+  	<![CDATA[
+  	WHERE A_STARTTIME >= DATE_FORMAT(STR_TO_DATE(#{day}, '%Y%m%d'), '%Y-%m-%d') 
+  	]]>
+  </select>
+  
+  <select id="selectAttend" parameterType="int" resultType="com.paas.runup.dto.AttendDTO"> 
+  	SELECT * FROM ATTEND WHERE A_NO = #{a_no}
+  </select>
+  
+  <insert id="insertAttend" parameterType="com.paas.runup.dto.AttendDTO">
+  	INSERT INTO ATTEND (S_NO, C_NO) VALUES (#{s_no}, #{c_no})
+  </insert>
+  
+  <delete id="deleteAttend" parameterType="int">
+  	DELETE FROM ATTEND WHERE A_NO = #{a_no}
+  </delete>
+  
+  <update id="updateAttendState" parameterType="int">
+  	UPDATE ATTEND SET A_STATE = #{a_state} WHERE A_NO = #{a_no}
+  </update>
+  
+  <update id="updateAttendTime" parameterType="com.paas.runup.dto.AttendDTO">
+  	UPDATE ATTEND SET A_STATE = NOW() WHERE A_NO = #{a_no}
+  </update>
+  
+
+</mapper>
