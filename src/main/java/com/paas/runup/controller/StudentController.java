@@ -24,7 +24,6 @@ public class StudentController {
 	public List<StudentDTO> getStudentAll() throws Exception{
 		System.out.println("학생테이블 전체 검색 메소드-START");
 		final List<StudentDTO> studentList = studentService.getStudentList();
-		
 		return studentList;
 	}
 	

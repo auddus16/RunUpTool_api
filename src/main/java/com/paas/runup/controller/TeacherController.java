@@ -3,7 +3,6 @@ package com.paas.runup.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,12 +19,11 @@ public class TeacherController {
 	@Autowired
 	private TeacherService teacherService;
 	
-	@RequestMapping(value= "/getTeachertList",method=RequestMethod.GET)
+	@RequestMapping(value= "/getTeacherList",method=RequestMethod.GET)
 	@ResponseBody
 	public List<TeacherDTO> getTeacherAll() throws Exception{
 		System.out.println("교사테이블 전체 검색 메소드-START");
 		final List<TeacherDTO> teacherList = teacherService.getTeacherList();
-		
 		return teacherList;
 	}
 	
