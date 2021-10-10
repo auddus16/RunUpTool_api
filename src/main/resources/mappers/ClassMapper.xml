@@ -4,11 +4,11 @@
 
 <mapper namespace="com.paas.runup.dao.ClassDAO">
   		
-  <select id="selectClassAll" parameterType="int" resultType="com.paas.runup.dto.ClassDTO"> 
+  <select id="selectClassbyTeacher" parameterType="int" resultType="com.paas.runup.dto.ClassDTO"> 
   	SELECT * FROM CLASS WHERE T_NO = #{t_no}
   </select>
   
-  <select id="selectClass" parameterType="int" resultType="com.paas.runup.dto.ClassDTO"> 
+  <select id="selectClassByClass" parameterType="int" resultType="com.paas.runup.dto.ClassDTO"> 
   	SELECT * FROM CLASS WHERE C_NO = #{c_no}
   </select>
   
