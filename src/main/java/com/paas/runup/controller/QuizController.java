@@ -3,9 +3,12 @@ package com.paas.runup.controller;
 import java.sql.Time;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,25 +23,25 @@ public class QuizController {
 	private QuizService quizService;
 	
 	@ResponseBody
-	@RequestMapping("/quiz/getQuizAll")
+	@RequestMapping(value="/quiz/getQuizAll", method=RequestMethod.GET)
 	public List<QuizDTO> getQuizAll() throws Exception{
-		System.out.println("퀴즈테이블 전체 검색 메소드-START");
+		System.out.println("퀴즈테이블 전체 검색");
 		final List<QuizDTO> quizList = quizService.selectQuizList();
 		
 		return quizList;
 	}
 	
-	@RequestMapping("/quiz/getQuiz")
-	public QuizDTO getQuiz() throws Exception{
-		System.out.println("퀴즈 검색 메소드-START");
-		final QuizDTO quiz = quizService.selectQuiz(3);
+	@RequestMapping(value="/quiz/getQuizDetail/{q_no}", method=RequestMethod.GET)
+	public QuizDTO getQuizDetail(int q_no) throws Exception{
+		System.out.println("퀴즈 상세 검색");
+		final QuizDTO quiz = quizService.selectQuiz(q_no);
 		
 		return quiz;
 	}
 	
-	@RequestMapping("/quiz/addQuiz")
+	@RequestMapping(value="/quiz/addQuiz", method=RequestMethod.POST)
 	public QuizDTO addQuiz() throws Exception{
-		System.out.println("퀴즈 추가 메소드-START");
+		System.out.println("퀴즈 추가");
 		QuizDTO quiz = new QuizDTO();
 		
 		//test
@@ -53,9 +56,9 @@ public class QuizController {
 		return quiz;
 	}
 	
-	@RequestMapping("/quiz/modifyQuiz")
+	@RequestMapping(value="/quiz/modifyQuiz/{q_no}", method=RequestMethod.PUT)
 	public QuizDTO modifyQuiz() throws Exception{
-		System.out.println("퀴즈 수정 메소드-START");
+		System.out.println("퀴즈 수정");
 		
 		//test
 		QuizDTO quiz = quizService.selectQuiz(3);
@@ -65,12 +68,14 @@ public class QuizController {
 		return quiz;
 	}
 	
-	@RequestMapping("/quiz/deleteQuiz")
-	public void deleteQuiz() throws Exception{
-		System.out.println("퀴즈 삭제 메소드-START");
+	@RequestMapping(value="/quiz/deleteQuiz", method= {RequestMethod.DELETE, RequestMethod.GET})
+	public void deleteQuiz(HttpServletResponse response) throws Exception{
+		System.out.println("퀴즈 삭제");
 		
 		//test
-		quizService.deleteQuiz(4);
+		quizService.deleteQuiz(3);
+		String redirect_uri = "/quiz/getQuizAll";
+		response.sendRedirect(redirect_uri);
 	}
 	
 	

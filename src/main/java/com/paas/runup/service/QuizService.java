@@ -20,7 +20,6 @@ public class QuizService implements QuizDAO{
 	public List<QuizDTO> selectQuizList() throws Exception {
 		// TODO Auto-generated method stub
 		List<QuizDTO> quizList= quizDAO.selectQuizList();
-		
 		return quizList;
 	}
 
