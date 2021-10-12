@@ -19,13 +19,6 @@
 	</properties>
 	<dependencies>
 	
-	<!-- Spring Security START -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-security</artifactId>
-	</dependency>
-	<!-- Spring Security END -->
-	
 	<!-- swagger START -->
 	<dependency>
 	<groupId>io.springfox</groupId>
