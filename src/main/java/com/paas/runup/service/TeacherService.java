@@ -16,27 +16,22 @@ public class TeacherService implements TeacherDAO {
 	@Autowired
 	TeacherDAO teacherDAO;
 	
-	@Override
-	public List<TeacherDTO> getTeacherList() throws Exception {
-		List<TeacherDTO> teacherList= teacherDAO.getTeacherList();
-		
-		return teacherList;
+	@Override /*선생님 전체 목록 조회*/
+	public List<TeacherDTO> getTeacherList(int t_no) throws Exception {
+		return teacherDAO.getTeacherList(t_no);
 	}
-	@Override
+	@Override /*학생 전체 목록 삽입*/
 	public int insertTeacher(TeacherDTO teacher)/*회원가입*/throws Exception {
-		int insertTeacher=teacherDAO.insertTeacher(teacher);
-		return insertTeacher;
+		return teacherDAO.insertTeacher(teacher);
 	}
 	
-	@Override
+	@Override /*학생 전체 목록 갱신*/
 	public int updateTeacher(TeacherDTO teacher) throws Exception{
-		int updateTeacher=teacherDAO.updateTeacher(teacher);
-		return updateTeacher;
+		return teacherDAO.updateTeacher(teacher);
 	}
-	@Override
+	@Override /*학생 전체 목록 삭제*/
 	public int deleteTeacher(int t_no)/*탈퇴*/ throws Exception{
-		int deleteTeacher=teacherDAO.deleteTeacher(t_no);
-		return deleteTeacher;
+		return teacherDAO.deleteTeacher(t_no);
 	}
 
 }

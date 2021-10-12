@@ -11,5 +11,5 @@ public interface StudentDAO {
 	public int insertStudent (StudentDTO student) throws Exception;
 	public int updateStudent (StudentDTO student) throws Exception;
 	public int deleteStudent (int s_no) throws Exception;
-	List<StudentDTO> getStudentList() throws Exception; 
+	List<StudentDTO> getStudentList(int s_no) throws Exception; 
 }

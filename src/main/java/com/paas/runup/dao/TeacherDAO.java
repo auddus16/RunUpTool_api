@@ -11,5 +11,5 @@ public interface TeacherDAO {
 	public int insertTeacher (TeacherDTO teacher) throws Exception;
 	public int updateTeacher (TeacherDTO teacher) throws Exception;
 	public int deleteTeacher (int t_no) throws Exception;
-	List<TeacherDTO> getTeacherList() throws Exception; 
+	List<TeacherDTO> getTeacherList(int t_no) throws Exception; 
 }
