@@ -1,6 +1,5 @@
 package com.paas.runup.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import com.paas.runup.dto.AttendDTO;

@@ -34,17 +34,17 @@ public class MyongYeonController {
 	private AttendService attendService;
 	
 	
-	@ApiOperation("선생님-수업테이블 전체 조회")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name="t_no", value="선생님 번호", dataType = "int", example= "1"),
-    })
-	@RequestMapping(value= "/class/{t_no}", method= RequestMethod.GET)
-	public List<ClassDTO> getClassList(@PathVariable int t_no) throws Exception{
-		System.out.println("수업테이블 전체 조회");
-		final List<ClassDTO> classList = classService.selectClassAll(t_no);
-		
-		return classList;
-	}
+//	@ApiOperation("선생님-수업테이블 전체 조회")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name="t_no", value="선생님 번호", dataType = "int", example= "1"),
+//    })
+//	@RequestMapping(value= "/class/{t_no}", method= RequestMethod.GET)
+//	public List<ClassDTO> getClassList(@PathVariable int t_no) throws Exception{
+//		System.out.println("수업테이블 전체 조회");
+//		final List<ClassDTO> classList = classService.selectClassAll(t_no);
+//		
+//		return classList;
+//	}
 	
 	@RequestMapping(value= "/class/newclass", method= RequestMethod.POST)
 	public boolean newClass(@Validated @RequestBody ClassDTO c) {
@@ -64,17 +64,17 @@ public class MyongYeonController {
 		return true;
 	}
 	
-	@RequestMapping(value= "/class/add/{c_no}", method= RequestMethod.PUT)
-	public ClassDTO addStudent(@PathVariable int c_no) throws Exception{
-		System.out.println("학생 수 1 증가");
-		int res= classService.addStudent(c_no);
-		System.out.println(res);
-		if(res== 0) {
-			return null;
-		}
-		
-		return classService.selectClass(c_no); 
-	}
+//	@RequestMapping(value= "/class/add/{c_no}", method= RequestMethod.PUT)
+//	public ClassDTO addStudent(@PathVariable int c_no) throws Exception{
+//		System.out.println("학생 수 1 증가");
+//		int res= classService.addStudent(c_no);
+//		System.out.println(res);
+//		if(res== 0) {
+//			return null;
+//		}
+//		
+//		return classService.selectClass(c_no); 
+//	}
 	
 	@RequestMapping(value= "/attend/{day}", method= RequestMethod.GET)
 	public void getClassList(@PathVariable String day, HttpServletResponse response) throws Exception{ //20211006
