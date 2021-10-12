@@ -8,9 +8,9 @@ import com.paas.runup.dto.ClassDTO;
 
 @Repository
 public interface ClassDAO {
-	List<ClassDTO> selectClassAll(int t_no) throws Exception;
+	List<ClassDTO> selectClassByTeacher(int t_no) throws Exception;
 	
-	ClassDTO selectClass(int c_no) throws Exception;
+	ClassDTO selectClassByClass(int c_no) throws Exception;
 	
 	int updateClass(ClassDTO c) throws Exception;
 	

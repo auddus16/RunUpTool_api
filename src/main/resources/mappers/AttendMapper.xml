@@ -8,7 +8,6 @@
   	SELECT * FROM ATTEND 
   	<![CDATA[
   	WHERE A_STARTTIME >= DATE_FORMAT(STR_TO_DATE(#{day}, '%Y%m%d'), '%Y-%m-%d') 
-  	and A_STARTTIME < DATE_ADD(DATE_FORMAT(STR_TO_DATE(#{day}, '%Y%m%d'), '%Y-%m-%d'), INTERVAL 1 DAY) 
   	]]>
   </select>
   

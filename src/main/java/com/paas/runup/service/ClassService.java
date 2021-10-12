@@ -17,15 +17,15 @@ public class ClassService implements ClassDAO{
 	ClassDAO classDAO;
 	
 	@Override
-	public List<ClassDTO> selectClassAll(int t_no) throws Exception {
+	public List<ClassDTO> selectClassByTeacher(int t_no) throws Exception {
 		
-		return classDAO.selectClassAll(t_no);
+		return classDAO.selectClassByTeacher(t_no);
 	}
 
 	@Override
-	public ClassDTO selectClass(int c_no) throws Exception {
+	public ClassDTO selectClassByClass(int c_no) throws Exception {
 		
-		return classDAO.selectClass(c_no);
+		return classDAO.selectClassByClass(c_no);
 	}
 
 	@Override
