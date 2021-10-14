@@ -35,6 +35,12 @@ public class StudentService implements StudentDAO {
 	public int deleteStudent(int s_no)/*탈퇴*/ throws Exception {
 		return studentDAO.deleteStudent(s_no);
 	}
+
+	@Override
+	public void insertStudent(String s_name) throws Exception {
+		// TODO Auto-generated method stub
+		studentDAO.insertStudent(s_name);
+	}
 	
 }
 

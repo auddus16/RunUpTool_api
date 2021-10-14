@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.paas.runup.dao.QuizCheckDAO">
+	<select id="selectQuizCheckList" resultType="com.paas.runup.dto.QuizCheckDTO">
+  	SELECT * FROM QUIZCHECK
+  </select>
+  
+  <select id="selectQuizCheck" parameterType="int" resultType="com.paas.runup.dto.QuizCheckDTO">
+  	SELECT * FROM QUIZCHECK
+  	WHERE qc_no=#{qc_no}
+  </select>
+  
+  <insert id="insertQuizCheck" parameterType="com.paas.runup.dto.QuizCheckDTO">
+  	INSERT INTO QUIZCHECK(q_no, s_no, qc_state, qc_time, qc_ans)
+  	VALUES (#{q_no},#{s_no},#{qc_state},#{qc_time},#{qc_ans})
+  </insert>
+  
+  <update id="updateQuizCheck" parameterType="com.paas.runup.dto.QuizCheckDTO">
+  	UPDATE QUIZCHECK
+  	SET q_no=#{q_no},s_no=#{s_no},qc_state=#{qc_state}, qc_time=#{qc_time}, qc_ans=#{qc_ans}
+  	WHERE qc_no=#{qc_no}
+  </update>
+  	
+  <delete id="deleteQuizCheck" parameterType="int">
+    DELETE FROM QUIZCHECK WHERE qc_no = #{qc_no}
+   </delete>
+  
+  
+	
+</mapper>
