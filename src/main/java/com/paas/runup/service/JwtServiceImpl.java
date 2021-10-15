@@ -68,7 +68,7 @@ public class JwtServiceImpl implements JwtService {
     private Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
     @Override
-    public String makeJwt(HttpServletRequest res) throws Exception {
+    public String makeJwt(HttpServletRequest request) throws Exception {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         Date expireTime  = new Date();
         expireTime.setTime(expireTime.getTime() + 1000 * 60 * 1);
@@ -82,11 +82,11 @@ public class JwtServiceImpl implements JwtService {
 
         Map<String, Object> map = new HashMap<String, Object>();
 
-        String s_name = res.getParameter("s_name");
-//        String id = res.getParameter("id");
+        String s_id =request.getParameter("s_id");
+        String s_password = request.getParameter("s_password");
 
-        map.put("s_name", s_name);
-//        map.put("id", id);
+        map.put("s_id", s_id);
+        map.put("s_password", s_password);
 
         JwtBuilder builder = Jwts.builder().setHeader(headerMap)
                 .setClaims(map)
@@ -105,7 +105,7 @@ public class JwtServiceImpl implements JwtService {
             logger.info("토큰 정상");
             logger.info("expireTime :" + claims.getExpiration());
             logger.info("s_name :" + claims.get("s_name"));
-//            logger.info("Id :" + claims.get("id"));
+            logger.info("s_password :" + claims.get("s_password"));
             return true;
         } catch (ExpiredJwtException exception) {
             logger.info("토큰 만료");
@@ -115,4 +115,6 @@ public class JwtServiceImpl implements JwtService {
             return false;
         }
     }
+    
+    
 }

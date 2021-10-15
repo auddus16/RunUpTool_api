@@ -1,5 +1,6 @@
 package com.paas.runup.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.mybatis.spring.annotation.MapperScan;
@@ -22,24 +23,24 @@ public class StudentService implements StudentDAO {
 	}
 	
 	@Override /*학생 전체 목록 삽입*/
-	public int insertStudent(StudentDTO student) throws Exception {
-		return studentDAO.insertStudent(student);
+	public void insertStudent(String s_id, String s_name, Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception {
+		studentDAO.insertStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
 	}
 	
 	@Override /*학생 전체 목록 갱신*/
-	public int updateStudent(StudentDTO student) throws Exception{
-		return studentDAO.updateStudent(student);
+	public void updateStudent(String s_id, String s_name, Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception{
+		studentDAO.updateStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
 	}
 	
 	@Override /*학생 전체 목록 삭제*/
-	public int deleteStudent(int s_no)/*탈퇴*/ throws Exception {
-		return studentDAO.deleteStudent(s_no);
+	public void deleteStudent(int s_no) throws Exception {
+		studentDAO.deleteStudent(s_no);
 	}
 
-	@Override
-	public void insertStudent(String s_name) throws Exception {
+	@Override /*로그인시 학생 목록 조회*/
+	public StudentDTO getStudentByIDPW(String s_id, String s_password) throws Exception {
 		// TODO Auto-generated method stub
-		studentDAO.insertStudent(s_name);
+		return studentDAO.getStudentByIDPW(s_id, s_password); //아이디 비번 select
 	}
 	
 }

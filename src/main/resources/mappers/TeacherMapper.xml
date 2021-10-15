@@ -11,7 +11,7 @@
   
   <insert id="insertTeacher">
   	INSERT INTO TEACHER
-  	VALUES (#{t_no},#{t_id},#{t_name},#{t_birth},#{t_gender},#{t_school},#{t_password},#{t_email})
+  	VALUES (#{t_id},#{t_name},#{t_birth},#{t_gender},#{t_school},#{t_password},#{t_email})
   </insert>
   
   <update id="updateTeacher">
@@ -24,5 +24,10 @@
         DELETE FROM TEACHER WHERE t_no = #{t_no}
    </delete>
 
-	
+	<select id="getTeacherByIDPW" resultType="com.paas.runup.dto.TeacherDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
+						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->
+  	SELECT t_id, t_password 
+  	FROM TEACHER
+  	WHERE t_id = #{t_id} AND t_password=#{t_password}
+  	 </select>
 </mapper>
