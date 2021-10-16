@@ -32,6 +32,8 @@ public class AttendDTO {
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd hh:mm:ss", timezone="Asia/Seoul")
 	private Date a_time;
 	
+	private StudentDTO student; 
+	
 	public int getA_no() {
 		return a_no;
 	}
