@@ -3,37 +3,26 @@ package com.paas.runup.controller;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.paas.runup.dto.StudentDTO;
-import com.paas.runup.service.StudentService;
-
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
-
 //
 import com.paas.runup.service.JwtService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import com.paas.runup.service.StudentService;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import io.swagger.annotations.ApiOperation;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @CrossOrigin
@@ -82,13 +71,13 @@ public class StudentController {
 	}
 	
 	@ApiOperation(value = "학생 - 로그인")
-    @RequestMapping(value = "/loginStudent", method= RequestMethod.GET)
-    public String loginStudent(String s_id, String s_password, HttpServletRequest request) throws Exception {
+    @RequestMapping(value = "/loginStudent/{s_id}/{s_password}", method= RequestMethod.GET)
+    public String loginStudent(@PathVariable String s_id, @PathVariable String s_password ) throws Exception {
 		System.out.println("학생로그인 메소드-START");
 		StudentDTO studentDTO = studentService.getStudentByIDPW(s_id, s_password);
 		
 		if (studentDTO != null) {
-			return jwtService.makeJwt(request);
+			return jwtService.makeJwt(studentDTO);
 		}
 		else {
 			System.out.println("학생 회원정보 없음");

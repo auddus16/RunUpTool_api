@@ -70,21 +70,21 @@ public class TeacherController {
 		teacherService.deleteTeacher(t_no);
 	}
 	
-	@ApiOperation(value = "선생님 - 로그인")
-    @RequestMapping(value = "/loginTeacher", method= RequestMethod.GET)
-    public String loginTeacher(String t_id, String t_password, HttpServletRequest request) throws Exception {
-		System.out.println("선생님로그인 메소드-START");
-		TeacherDTO teacherDTO = teacherService.getTeacherByIDPW(t_id, t_password);
-		
-		if (teacherDTO != null) {
-			return jwtService.makeJwt(request);
-		}
-		else {
-			System.out.println("선생님 회원정보 없음");
-			return null;
-		}
-			
-	}	
+//	@ApiOperation(value = "선생님 - 로그인")
+//    @RequestMapping(value = "/loginTeacher", method= RequestMethod.GET)
+//    public String loginTeacher(String t_id, String t_password, HttpServletRequest request) throws Exception {
+//		System.out.println("선생님로그인 메소드-START");
+//		TeacherDTO teacherDTO = teacherService.getTeacherByIDPW(t_id, t_password);
+//		
+//		if (teacherDTO != null) {
+//			return jwtService.makeJwt(request);
+//		}
+//		else {
+//			System.out.println("선생님 회원정보 없음");
+//			return null;
+//		}
+//			
+//	}	
 	
     @GetMapping("/jwt/auth")
     public boolean authToken(HttpServletRequest res) throws Exception {

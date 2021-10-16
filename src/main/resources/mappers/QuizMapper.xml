@@ -3,8 +3,9 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.paas.runup.dao.QuizDAO">
-	<select id="selectQuizList" resultType="com.paas.runup.dto.QuizDTO">
+	<select id="selectQuizList" parameterType="int" resultType="com.paas.runup.dto.QuizDTO">
   	SELECT * FROM QUIZ
+  	WHERE c_no=#{c_no}
   </select>
   
   <select id="selectQuiz" parameterType="int" resultType="com.paas.runup.dto.QuizDTO">
@@ -19,7 +20,7 @@
   
   <update id="updateQuiz" parameterType="com.paas.runup.dto.QuizDTO">
   	UPDATE QUIZ 
-  	SET c_no=#{c_no},q_ques=#{q_ques},q_ans=#{q_ans}, q_type=#{q_type}, q_timelimit=#{q_timelimit}
+  	SET q_ques=#{q_ques},q_ans=#{q_ans}, q_type=#{q_type}, q_timelimit=#{q_timelimit}
   	WHERE q_no=#{q_no}
   </update>
   	

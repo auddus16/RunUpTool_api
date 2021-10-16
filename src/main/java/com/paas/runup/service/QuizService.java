@@ -17,9 +17,9 @@ public class QuizService implements QuizDAO{
 	private QuizDAO quizDAO;
 	
 	@Override
-	public List<QuizDTO> selectQuizList() throws Exception {
+	public List<QuizDTO> selectQuizList(int c_no) throws Exception {
 		// TODO Auto-generated method stub
-		List<QuizDTO> quizList= quizDAO.selectQuizList();
+		List<QuizDTO> quizList= quizDAO.selectQuizList(c_no);
 		return quizList;
 	}
 

@@ -1,8 +1,8 @@
 package com.paas.runup.service;
 
-import javax.servlet.http.HttpServletRequest;
+import com.paas.runup.dto.StudentDTO;
 
 public interface JwtService {
-    public String makeJwt(HttpServletRequest request) throws Exception;
+    public String makeJwt(StudentDTO studentDTO) throws Exception;
     public boolean checkJwt(String jwt) throws Exception;
 }

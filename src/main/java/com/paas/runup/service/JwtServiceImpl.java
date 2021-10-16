@@ -1,5 +1,20 @@
 package com.paas.runup.service;
 
+import java.security.Key;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.DatatypeConverter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import com.paas.runup.dto.StudentDTO;
+
 //import java.io.UnsupportedEncodingException;
 //
 //import org.springframework.stereotype.Service;
@@ -46,19 +61,12 @@ package com.paas.runup.service;
 //		return key;
 //	}
 //}
-
-import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
-
-import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -68,7 +76,7 @@ public class JwtServiceImpl implements JwtService {
     private Logger logger = LoggerFactory.getLogger(JwtServiceImpl.class);
 
     @Override
-    public String makeJwt(HttpServletRequest request) throws Exception {
+    public String makeJwt(StudentDTO studentDTO) throws Exception {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
         Date expireTime  = new Date();
         expireTime.setTime(expireTime.getTime() + 1000 * 60 * 1);
@@ -81,12 +89,12 @@ public class JwtServiceImpl implements JwtService {
         headerMap.put("alg", "HS256");
 
         Map<String, Object> map = new HashMap<String, Object>();
-
-        String s_id =request.getParameter("s_id");
-        String s_password = request.getParameter("s_password");
-
-        map.put("s_id", s_id);
-        map.put("s_password", s_password);
+        
+        map.put("s_id", studentDTO.getS_id());
+        map.put("s_password", studentDTO.getS_password());
+        map.put("s_no", studentDTO.getS_no());
+        map.put("s_email", studentDTO.getS_email());
+        map.put("s_name", studentDTO.getS_name());
 
         JwtBuilder builder = Jwts.builder().setHeader(headerMap)
                 .setClaims(map)
@@ -104,8 +112,11 @@ public class JwtServiceImpl implements JwtService {
 
             logger.info("토큰 정상");
             logger.info("expireTime :" + claims.getExpiration());
+            logger.info("s_id :" + claims.get("s_id"));
             logger.info("s_name :" + claims.get("s_name"));
             logger.info("s_password :" + claims.get("s_password"));
+            logger.info("s_no :" + claims.get("s_no"));
+            logger.info("s_email :" + claims.get("s_email"));
             return true;
         } catch (ExpiredJwtException exception) {
             logger.info("토큰 만료");
