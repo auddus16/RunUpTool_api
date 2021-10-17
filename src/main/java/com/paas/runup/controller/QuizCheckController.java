@@ -1,12 +1,14 @@
 package com.paas.runup.controller;
 
 import java.sql.Time;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +18,14 @@ import com.paas.runup.dao.QuizCheckDAO;
 import com.paas.runup.dto.QuizCheckDTO;
 import com.paas.runup.service.QuizCheckService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@RequiredArgsConstructor
 @RestController
 public class QuizCheckController {
 	
@@ -23,27 +33,33 @@ public class QuizCheckController {
 	private QuizCheckService quizCheckService;
 	
 	@ResponseBody
-	@RequestMapping(value="/quizCheck/getQuizCheckAll", method=RequestMethod.GET)
-	public List<QuizCheckDTO> getQuizCheckAll() throws Exception{
-		System.out.println("제출한 퀴즈 테이블 전체 검색");
-		final List<QuizCheckDTO> quizCheckList = quizCheckService.selectQuizCheckList();
+	
+	@ApiOperation(value = "선생님 - 퀴즈 제출 리스트 조회", notes = "퀴즈 제출 리스트를 조회한다.")
+	@ApiImplicitParam(name="q_no", value="퀴즈 번호", example = "1")
+	@RequestMapping(value="/quiz/getQuizCheckByQuiz/{q_no}", method=RequestMethod.GET)
+	public List<QuizCheckDTO> getQuizCheckByQuiz(@PathVariable int q_no) throws Exception{
 		
-		return quizCheckList;
+		System.out.println("퀴즈 제출 리스트 검색");
+		
+		return quizCheckService.selectQuizCheckListByQuiz(q_no);
 	}
 	
-	@RequestMapping(value="/quizCheck/getQuizCheckDetail/{qc_no}", method=RequestMethod.GET)
-	public QuizCheckDTO getQuizCheckDetail(int qc_no) throws Exception{
-		System.out.println("제출한 퀴즈 상세 검색");
-		final QuizCheckDTO quizCheck = quizCheckService.selectQuizCheck(qc_no);
+	@ApiOperation(value = "학생 - 제출한 퀴즈 리스트 조회", notes = "자신이 제출한 퀴즈 리스트를 조회한다.")
+	@ApiImplicitParam(name="s_no", value="학생 번호", example = "1")
+	@RequestMapping(value="/quiz/getQuizCheckByStudent/{s_no}", method=RequestMethod.GET)
+	public List<QuizCheckDTO> getQuizCheckByStudent(@PathVariable int s_no) throws Exception{
 		
-		return quizCheck;
+		System.out.println("제출한 퀴즈 리스트 검색");
+		
+		return quizCheckService.selectQuizCheckListByStudent(s_no);
 	}
 	
-	@RequestMapping(value="/quizCheck/addQuizCheck", method=RequestMethod.POST)
-	public QuizCheckDTO addQuiz() throws Exception{
+	@ApiOperation(value="제출한 퀴즈 추가", notes="학생이 제출한 퀴즈를 추가한다.")
+	@RequestMapping(value="/quiz/addQuizCheck", method=RequestMethod.POST)
+	public void addQuizCheck(@RequestBody QuizCheckDTO quizcheck) throws Exception{
 		System.out.println("제출한 퀴즈 추가");
-		QuizCheckDTO quizCheck = new QuizCheckDTO();
-		
+//		QuizDTO quiz = new QuizDTO();
+//		
 //		//test
 //		Time time = new Time(0, 3, 0);
 //		quiz.setC_no(1);
@@ -51,31 +67,11 @@ public class QuizCheckController {
 //		quiz.setQ_ans("답");
 //		quiz.setQ_type(false);
 //		quiz.setQ_timelimit(time);
-		quizCheckService.insertQuizCheck(quizCheck);
+//		quizService.insertQuiz(quiz);
 		
-		return quizCheck;
-	}
-	
-	@RequestMapping(value="/quizCheck/modifyQuizCheck/{qc_no}", method=RequestMethod.PUT)
-	public QuizCheckDTO modifyQuizCheck() throws Exception{
-		System.out.println("제출한 퀴즈 수정");
+//		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		
-		//test
-		QuizCheckDTO quizCheck = quizCheckService.selectQuizCheck(3);
-//		quizCheck.setQ_ans("답 수정");
-		quizCheckService.updateQuizCheck(quizCheck);
-		
-		return quizCheck;
-	}
-	
-	@RequestMapping(value="/quizCheck/deleteQuizCheck", method= {RequestMethod.DELETE, RequestMethod.GET})
-	public void deleteQuizCheck(HttpServletResponse response) throws Exception{
-		System.out.println("제출한 퀴즈 삭제");
-		
-		//test
-		quizCheckService.deleteQuizCheck(3);
-		String redirect_uri = "/quizCheck/getQuizCheckAll";
-		response.sendRedirect(redirect_uri);
+		quizCheckService.insertQuizCheck(quizcheck);
 	}
 	
 	

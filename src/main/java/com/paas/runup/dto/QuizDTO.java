@@ -5,17 +5,23 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+//@Data
+//@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+//@JsonIgnoreProperties({"q_no"})
 
 public class QuizDTO {
 //	Q_NO INT PRIMARY KEY AUTO_INCREMENT,
@@ -26,28 +32,23 @@ public class QuizDTO {
 //	Q_TIMELIMIT TIME NOT NULL,
 //	FOREIGN KEY(C_NO) REFERENCES CLASS(C_NO) ON DELETE CASCADE ON UPDATE CASCADE
 	
-//	@ApiModelProperty(name = "q_no", example = "1")
-	@ApiParam(value = "퀴즈 번호")
+	
+	@ApiModelProperty(name = "q_no", value = "퀴즈 번호",example = "1", hidden=true)
 	private int q_no;
 	
-//	@ApiModelProperty(name = "c_no", example = "1")
-	@ApiParam(value = "수업 번호")
+	@ApiModelProperty(name = "c_no", value = "수업 번호", example = "1")
 	private int c_no;
 	
-//	@ApiModelProperty(name = "q_ques", example = "사과를 영어로?")
-	@ApiParam(value = "퀴즈 문제")
+	@ApiModelProperty(name = "q_ques", value = "퀴즈 문제", example = "사과를 영어로?")
 	private String q_ques;
 	
-//	@ApiModelProperty(name = "q_ans", example = "apple")
-	@ApiParam(value = "퀴즈 답")
+	@ApiModelProperty(name = "q_ans", value = "퀴즈 답", example = "apple")
 	private String q_ans;
 	
-//	@ApiModelProperty(name = "q_type", example = "0")
-	@ApiParam(value = "퀴즈 유형(0:단답형 1:서술형)")
+	@ApiModelProperty(name = "q_type", value = "퀴즈 유형(True:서술형 False:단답형)", example = "0")
 	private boolean q_type;
 	
-//	@ApiModelProperty(name = "q_timelimit", example = "00:03:00")
-	@ApiParam(value = "퀴즈 제한 시간")
+	@ApiModelProperty(name = "q_timelimit", value = "퀴즈 제한 시간(hh:mm:ss)", example = "00:03:00")
 	private String q_timelimit;
 	
 	

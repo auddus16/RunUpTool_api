@@ -17,17 +17,17 @@ public class QuizCheckService implements QuizCheckDAO{
 	private QuizCheckDAO quizCheckDAO;
 	
 	@Override
-	public List<QuizCheckDTO> selectQuizCheckList() throws Exception {
+	public List<QuizCheckDTO> selectQuizCheckListByQuiz(int q_no) throws Exception {
 		// TODO Auto-generated method stub
-		List<QuizCheckDTO> quizCheckList= quizCheckDAO.selectQuizCheckList();
+		List<QuizCheckDTO> quizCheckList= quizCheckDAO.selectQuizCheckListByQuiz(q_no);
 		return quizCheckList;
 	}
-
+	
 	@Override
-	public QuizCheckDTO selectQuizCheck(int qc_no) throws Exception {
+	public List<QuizCheckDTO> selectQuizCheckListByStudent(int s_no) throws Exception {
 		// TODO Auto-generated method stub
-		QuizCheckDTO quizCheck = quizCheckDAO.selectQuizCheck(qc_no);
-		return quizCheck;
+		List<QuizCheckDTO> quizCheckList= quizCheckDAO.selectQuizCheckListByStudent(s_no);
+		return quizCheckList;
 	}
 
 	@Override
@@ -36,20 +36,5 @@ public class QuizCheckService implements QuizCheckDAO{
 		quizCheckDAO.insertQuizCheck(quizCheck);
 	}
 
-	@Override
-	public void updateQuizCheck(QuizCheckDTO quizCheck) throws Exception {
-		// TODO Auto-generated method stub
-		quizCheckDAO.updateQuizCheck(quizCheck);
-		
-	}
-
-	@Override
-	public void deleteQuizCheck(int qc_no) throws Exception {
-		// TODO Auto-generated method stub
-		quizCheckDAO.deleteQuizCheck(qc_no);
-	}
-
 	
-	
-
 }

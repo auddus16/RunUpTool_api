@@ -3,13 +3,18 @@ package com.paas.runup.dto;
 import java.sql.Time;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 
@@ -23,13 +28,23 @@ public class QuizCheckDTO {
 //	FOREIGN KEY(Q_NO) REFERENCES QUIZ(Q_NO) ON DELETE CASCADE ON UPDATE CASCADE,
 //	FOREIGN KEY(S_NO) REFERENCES STUDENT(S_NO) ON DELETE CASCADE ON UPDATE CASCADE
 
-	
+	@ApiModelProperty(name = "qc_no", value = "퀴즈 체크 번호",example = "1", hidden=true)
 	private int qc_no;
+	
+	@ApiModelProperty(name = "q_no", value = "퀴즈 번호",example = "1")
 	private int q_no;
+	
+	@ApiModelProperty(name = "s_no", value = "학생 번호",example = "1")
 	private int s_no;
+	
+	@ApiModelProperty(name = "qc_state", value = "퀴즈 제출 여부", example = "true")
 	private boolean qc_state;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd", timezone="Asia/Seoul")
-	private Date qc_time;
+	
+	@ApiModelProperty(name = "qc_time", value = "퀴즈 제출 날짜",example = "2021-10-10")
+//	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd hh:mm:ss", timezone="Asia/Seoul")
+	private String qc_time;
+	
+	@ApiModelProperty(name = "qc_ans", value = "퀴즈 제출 답안", example = "apple")
 	private String qc_ans;
 	
 	
@@ -57,10 +72,10 @@ public class QuizCheckDTO {
 	public void setQc_state(boolean qc_state) {
 		this.qc_state = qc_state;
 	}
-	public Date getQc_time() {
+	public String getQc_time() {
 		return qc_time;
 	}
-	public void setQc_time(Date qc_time) {
+	public void setQc_time(String qc_time) {
 		this.qc_time = qc_time;
 	}
 	public String getQc_ans() {

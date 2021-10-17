@@ -25,7 +25,8 @@
   </update>
   	
   <delete id="deleteQuiz" parameterType="int">
-    DELETE FROM QUIZ WHERE q_no = #{q_no}
+    DELETE FROM QUIZ
+    WHERE q_no = #{q_no}
    </delete>
   
   

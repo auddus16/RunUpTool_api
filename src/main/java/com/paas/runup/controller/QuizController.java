@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.paas.runup.dao.QuizDAO;
 import com.paas.runup.dto.QuizDTO;
 import com.paas.runup.service.QuizService;
@@ -42,44 +44,36 @@ public class QuizController {
 	@ResponseBody
 	
 	@ApiOperation(value = "퀴즈 리스트 조회", notes = "선생님이 수업에 추가한 퀴즈 리스트를 조회한다.")
-	@ApiImplicitParam(name="c_no", value="수업 번호")
+	@ApiImplicitParam(name="c_no", value="수업 번호", example = "1")
 	@RequestMapping(value="/quiz/getQuizAll/{c_no}", method=RequestMethod.GET)
-	public List<QuizDTO> getQuizAll(@PathVariable int c_no, HttpServletRequest res) throws Exception{
+	public List<QuizDTO> getQuizAll(@PathVariable int c_no) throws Exception{
 		
-		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("MySecretKeyWelcomeMyFirstJwt"))
-                .parseClaimsJws(res.getHeader("jwt")).getBody();
 		System.out.println("퀴즈 테이블 전체 검색");
 		
-		return quizService.selectQuizList((Integer)claims.get("s_no"));
+		return quizService.selectQuizList(c_no);
 	}
 	
 	@ApiOperation(value="퀴즈 상세 조회", notes="q_no를 통해 퀴즈를 상세 조회한다.")
-	@ApiImplicitParam(name="q_no", value="퀴즈 번호")
+	@ApiImplicitParam(name="q_no", value="퀴즈 번호", example = "1")
 	@RequestMapping(value="/quiz/getQuizDetail/{q_no}", method=RequestMethod.GET)
-	public QuizDTO getQuizDetail(@PathVariable int q_no, HttpServletRequest res) throws Exception{
+	public QuizDTO getQuizDetail(@PathVariable int q_no) throws Exception{
 		
 		System.out.println("퀴즈 상세 검색");
 		
-		if(res.getHeader("jwt")!=null) {
-			return quizService.selectQuiz(q_no);
-		}
-		else {
-			return null;
-		}
-//		return quizService.selectQuiz(q_no);
+		return quizService.selectQuiz(q_no);
 	}
 	
 	@ApiOperation(value="새로운 퀴즈 추가", notes="새로운 퀴즈를 추가한다.")
-	@ApiImplicitParams({
-		@ApiImplicitParam(name="q_no", value="퀴즈 번호", example = "1", dataType="int", defaultValue="0"),
-		@ApiImplicitParam(name="c_no", value="수업 번호", example = "1", dataType="int"),
-		@ApiImplicitParam(name="q_ques", value="퀴즈 문제", example = "사과를 영어로?", dataType="string"),
-		@ApiImplicitParam(name="q_ans", value="퀴즈 답", example = "apple", dataType="string"),
-		@ApiImplicitParam(name="q_type", value="퀴즈 타입", example = "True", dataType="boolean"),
-		@ApiImplicitParam(name="q_timelimit", value="퀴즈 제한 시간",example = "00:03:00", dataType="string")
-		})
+//	@ApiImplicitParams({
+//		@ApiImplicitParam(name="q_no", value="퀴즈 번호", dataType="int"),
+//		@ApiImplicitParam(name="c_no", value="수업 번호", dataType="int"),
+//		@ApiImplicitParam(name="q_ques", value="퀴즈 문제", dataType="string"),
+//		@ApiImplicitParam(name="q_ans", value="퀴즈 답", dataType="string"),
+//		@ApiImplicitParam(name="q_type", value="퀴즈 유형(True:서술형 False:단답형 )", dataType="boolean"),
+//		@ApiImplicitParam(name="q_timelimit", value="퀴즈 제한 시간", dataType="string")
+//		})
 	@RequestMapping(value="/quiz/addQuiz", method=RequestMethod.POST)
-	public void addQuiz(@Validated @RequestBody QuizDTO quiz) throws Exception{
+	public void addQuiz(@RequestBody QuizDTO quiz) throws Exception{
 		System.out.println("퀴즈 추가");
 //		QuizDTO quiz = new QuizDTO();
 //		
@@ -95,10 +89,10 @@ public class QuizController {
 		quizService.insertQuiz(quiz);
 	}
 	
+	
 	@ApiOperation(value="퀴즈 수정", notes="q_no를 통해 퀴즈를 수정한다.")
-//	@ApiImplicitParam(name="quiz", value="QuizDTO")
 	@RequestMapping(value="/quiz/modifyQuiz/{q_no}", method=RequestMethod.PUT)
-	public void modifyQuiz(@RequestBody QuizDTO quiz) throws Exception{
+	public void modifyQuiz(@PathVariable int q_no, @RequestBody QuizDTO quiz) throws Exception{
 		System.out.println("퀴즈 수정");
 		
 //		//test
@@ -111,8 +105,8 @@ public class QuizController {
 	}
 	
 	@ApiOperation(value="퀴즈 삭제", notes="q_no를 통해 퀴즈를 삭제한다.")
-	@ApiImplicitParam(name="q_no", value="퀴즈 번호")
-	@RequestMapping(value="/quiz/deleteQuiz/{q_no}", method= {RequestMethod.DELETE, RequestMethod.GET})
+	@ApiImplicitParam(name="q_no", value="퀴즈 번호", example = "1")
+	@RequestMapping(value="/quiz/deleteQuiz/{q_no}", method= {RequestMethod.DELETE})
 	public void deleteQuiz(@PathVariable int q_no) throws Exception{
 		System.out.println("퀴즈 삭제");
 		
