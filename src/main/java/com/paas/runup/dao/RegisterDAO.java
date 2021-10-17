@@ -13,6 +13,8 @@ public interface RegisterDAO {
 	
 	//int updateRegister(RegisterDTO c) throws Exception;
 	
+	int deleteRegister(RegisterDTO r) throws Exception;
+	
 	int delRegisterByClass(int c_no) throws Exception;
 	
 	int delRegisterByStudent(int s_no) throws Exception;

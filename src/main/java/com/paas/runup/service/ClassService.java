@@ -47,15 +47,15 @@ public class ClassService implements ClassDAO{
 	}
 
 	@Override
-	public int addStudent(int t_no) throws Exception {
+	public int addStudent(int c_no) throws Exception {
 		
-		return classDAO.addStudent(t_no);
+		return classDAO.addStudent(c_no);
 	}
 
 	@Override
-	public int subStudent(int t_no) throws Exception {
+	public int subStudent(int c_no) throws Exception {
 		
-		return classDAO.subStudent(t_no);
+		return classDAO.subStudent(c_no);
 	}
 
 }

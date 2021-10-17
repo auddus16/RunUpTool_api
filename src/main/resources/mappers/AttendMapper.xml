@@ -13,10 +13,10 @@
   </select>
   
   <select id="selectAttend" parameterType="int" resultType="com.paas.runup.dto.AttendDTO"> 
-  	SELECT * FROM ATTEND WHERE A_NO = #{a_no}
+  	SELECT * FROM ATTEND WHERE DATE_FORMAT(A_STARTTIME, "%Y-%m-%d") = CURDATE() AND S_NO = #{s_no} AND C_NO = #{c_no}
   </select>
   
-  <insert id="insertAttend" parameterType="com.paas.runup.dto.AttendDTO">
+  <insert id="insertAttend" parameterType="int">
   	INSERT INTO ATTEND (S_NO, C_NO) VALUES (#{s_no}, #{c_no})
   </insert>
   
@@ -24,8 +24,8 @@
   	DELETE FROM ATTEND WHERE A_NO = #{a_no}
   </delete>
   
-  <update id="updateAttendState" parameterType="int">
-  	UPDATE ATTEND SET A_STATE = #{a_state} WHERE A_NO = #{a_no}
+  <update id="updateAttend" parameterType="com.paas.runup.dto.AttendDTO">
+  	UPDATE ATTEND SET A_STATE = #{a_state}, A_TIME = #{a_time} WHERE A_NO = #{a_no}
   </update>
   
   <update id="updateAttendTime" parameterType="com.paas.runup.dto.AttendDTO">

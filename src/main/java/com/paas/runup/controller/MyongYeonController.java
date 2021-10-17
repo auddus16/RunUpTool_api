@@ -92,12 +92,12 @@ public class MyongYeonController {
 		// return attendService.selectAttendByDate(day);
 	}
 
-	@RequestMapping(value = "/attend/get/{a_no}", method = RequestMethod.GET)
-	public AttendDTO getAttend(@PathVariable int a_no) throws Exception {
-		System.out.println("수업테이블 전체 조회");
-		final AttendDTO attend = attendService.selectAttend(a_no);
-
-		return attend;
-	}
+//	@RequestMapping(value = "/attend/get/{a_no}", method = RequestMethod.GET)
+//	public AttendDTO getAttend(@PathVariable int a_no) throws Exception {
+//		System.out.println("수업테이블 전체 조회");
+//		final AttendDTO attend = attendService.selectAttend(a_no);
+//
+//		return attend;
+//	}
 
 }

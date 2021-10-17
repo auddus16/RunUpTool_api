@@ -1,10 +1,11 @@
 package com.paas.runup.dto;
 
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class ClassDTO {
@@ -18,10 +19,19 @@ public class ClassDTO {
 CASCADE ON UPDATE CASCADE
 	 */
 	
+	@ApiModelProperty(name = "c_no", value = "수업 번호", example = "1", hidden=true)
 	private int c_no;
+	
+	@ApiModelProperty(name = "c_name", value = "수업 이름", example = "수학1반")
 	private String c_name;
+	
+	@ApiModelProperty(name = "c_time", value = "수업 시간", example = "목 10:00-10:50")
 	private String c_time;
+	
+	@ApiModelProperty(name = "c_stunum", value = "학생 수", example = "30", hidden=true)
 	private int c_stunum;
+	
+	@ApiModelProperty(name = "t_no", value = "선생님 번호", example = "1", hidden=true)
 	private int t_no;
 	
 	public int getC_no() {

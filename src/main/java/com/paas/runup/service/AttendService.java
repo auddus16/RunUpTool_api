@@ -23,9 +23,9 @@ public class AttendService implements AttendDAO{
 	}
 
 	@Override
-	public AttendDTO selectAttend(int a_no) throws Exception {
+	public AttendDTO selectAttend(int s_no, int c_no) throws Exception {
 		// TODO Auto-generated method stub
-		return attendDAO.selectAttend(a_no);
+		return attendDAO.selectAttend(s_no, c_no);
 	}
 
 	@Override
@@ -53,9 +53,9 @@ public class AttendService implements AttendDAO{
 	}
 
 	@Override
-	public int insertAttend(AttendDTO a) throws Exception {
+	public int insertAttend(int s_no, int c_no) throws Exception {
 		// TODO Auto-generated method stub
-		return attendDAO.insertAttend(a);
+		return attendDAO.insertAttend(s_no, c_no);
 	}
 
 }

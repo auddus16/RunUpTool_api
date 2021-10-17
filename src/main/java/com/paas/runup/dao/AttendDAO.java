@@ -7,7 +7,7 @@ import com.paas.runup.dto.AttendDTO;
 public interface AttendDAO {
 	List<AttendDTO> selectAttendByDate(String day) throws Exception;//날짜로 등록 조회
 	
-	AttendDTO selectAttend(int a_no) throws Exception;
+	AttendDTO selectAttend(int s_no, int c_no) throws Exception;
 	
 	int updateAttend(AttendDTO a) throws Exception; //전체 갱신
 	
@@ -17,6 +17,6 @@ public interface AttendDAO {
 	
 	int deleteAttend(int a_no) throws Exception;
 	
-	int insertAttend(AttendDTO a) throws Exception;	//출석상태는 '결석'으로 삽입
+	int insertAttend(int s_no, int c_no) throws Exception;	//출석상태는 '결석'으로 삽입
 	
 }

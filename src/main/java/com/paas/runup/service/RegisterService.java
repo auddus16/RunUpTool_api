@@ -46,4 +46,10 @@ public class RegisterService implements RegisterDAO{
 		return registerDAO.insertRegister(r);
 	}
 
+	@Override
+	public int deleteRegister(RegisterDTO r) throws Exception {
+		// TODO Auto-generated method stub
+		return registerDAO.deleteRegister(r);
+	}
+
 }

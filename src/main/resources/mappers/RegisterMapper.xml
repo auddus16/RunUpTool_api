@@ -16,8 +16,8 @@
   	INSERT INTO REGISTER (C_NO, S_NO) VALUES (#{c_no}, #{s_no})
   </insert>
   
-  <delete id="delRegisterByStudent" parameterType="int">
-  	DELETE FROM REGISTER WHERE S_NO = #{s_no}
+  <delete id="deleteRegister" parameterType="com.paas.runup.dto.RegisterDTO">
+  	DELETE FROM REGISTER WHERE S_NO = #{s_no} AND C_NO = #{c_no}
   </delete>
   
   <delete id="delRegisterByClass" parameterType="int">
