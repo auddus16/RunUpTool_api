@@ -7,19 +7,24 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.paas.runup.dto.QuizDTO;
 import com.paas.runup.dto.StudentDTO;
 //
 import com.paas.runup.service.JwtService;
 import com.paas.runup.service.StudentService;
 
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -39,6 +44,7 @@ public class StudentController {
 	private JwtService jwtService;
 	
 	@ApiOperation("학생 - 마이페이지 조회")
+	@ApiImplicitParam(name="s_no", value="학생 번호", example = "1")
 	@RequestMapping(value= "/getStudentList", method=RequestMethod.GET)
 	public List<StudentDTO> getStudentAll(int s_no) throws Exception{
 		System.out.println("학생테이블 전체 검색 메소드-START");
@@ -46,21 +52,18 @@ public class StudentController {
 		return studentList;
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@ApiOperation("학생 - 회원가입")
 	@RequestMapping(value= "/signupStudent", method=RequestMethod.POST)
-	@ResponseBody
-	public void signupStudent(String s_id, String s_name,Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception{
+	public void signupStudent(@RequestBody StudentDTO s) throws Exception{
 		System.out.println("학생테이블 삽입 메소드-START");
-		studentService.insertStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
+		studentService.insertStudent(s);
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@ApiOperation("학생 - 회원정보 수정")
 	@RequestMapping(value= "/updateStudent", method=RequestMethod.PUT)
-	public void updateStudent(String s_id, String s_name,Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception{
+	public void updateStudent(@PathVariable int s_no, @RequestBody StudentDTO s) throws Exception{
 		System.out.println("학생테이블 갱신 메소드-START");
-		studentService.updateStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
+		studentService.updateStudent(s);
 	}
 
 	@ApiOperation("학생 - 회원정보 탈퇴")
@@ -99,4 +102,41 @@ public class StudentController {
         
     }
     
+    
+    @ApiOperation(value = "학생 - 아이디찾기")
+    @RequestMapping(value = "/searchStudentID", method= RequestMethod.GET)
+    public void searchStudentID(@PathVariable String s_name, @PathVariable String s_email ) throws Exception {
+		System.out.println("학생아이디찾기 메소드-START");
+		StudentDTO studentDTO = studentService.searchStudentID(s_name, s_email);
+		
+		if (studentDTO != null) {
+			System.out.println("학생 회원정보 있음");
+		}
+		else {
+			System.out.println("학생 회원정보 없음");
+		}
+			
+	}
+    
+    @ApiOperation(value = "학생 - 비밀번호찾기")
+    @RequestMapping(value = "/searchStudentPW", method= RequestMethod.GET)
+    public void searchStudentPW(@PathVariable String s_name, @PathVariable String s_id, @PathVariable String s_email ) throws Exception {
+		System.out.println("학생비밀번호찾기 메소드-START");
+		StudentDTO studentDTO = studentService.searchStudentPW(s_name, s_id, s_email);
+		
+		if (studentDTO != null) {
+			System.out.println("학생 회원정보 있음");
+		}
+		else {
+			System.out.println("학생 회원정보 없음");
+		}
+			
+	}
+    
+    @ApiOperation(value="학생 - 비밀번호재설정")
+	@RequestMapping(value="/updateStudentPW", method=RequestMethod.PUT)
+	public void updateStudentPW(@PathVariable int s_no, @PathVariable String s_password) throws Exception{
+    	System.out.println("학생비밀번호재설정 메소드-START");
+    	studentService.updateStudentPW(s_password);
+	}
 }

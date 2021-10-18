@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.paas.runup.dao.StudentDAO;
+import com.paas.runup.dto.QuizDTO;
 import com.paas.runup.dto.StudentDTO;
 
 @Service
@@ -23,13 +24,13 @@ public class StudentService implements StudentDAO {
 	}
 	
 	@Override /*학생 전체 목록 삽입*/
-	public void insertStudent(String s_id, String s_name, Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception {
-		studentDAO.insertStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
+	public void insertStudent(StudentDTO s) throws Exception {
+		studentDAO.insertStudent(s);
 	}
 	
 	@Override /*학생 전체 목록 갱신*/
-	public void updateStudent(String s_id, String s_name, Date s_birth, boolean s_gender,String s_school,int s_grade,int s_class,String s_password,String s_email) throws Exception{
-		studentDAO.updateStudent(s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email);
+	public void updateStudent(StudentDTO s) throws Exception{
+		studentDAO.updateStudent(s);
 	}
 	
 	@Override /*학생 전체 목록 삭제*/
@@ -43,5 +44,23 @@ public class StudentService implements StudentDAO {
 		return studentDAO.getStudentByIDPW(s_id, s_password); //아이디 비번 select
 	}
 	
+	@Override /*학생 아이디 찾기*/
+	public StudentDTO searchStudentID(String s_name, String s_email) throws Exception {
+		// TODO Auto-generated method stub
+		return studentDAO.searchStudentID(s_name, s_email); 
+	}
+	
+	@Override /*학생 비밀번호 찾기*/
+	public StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception {
+		// TODO Auto-generated method stub
+		return studentDAO.searchStudentPW(s_name, s_id, s_email); 
+	}
+	
+	@Override /*학생 비밀번호 재설정*/
+	public StudentDTO updateStudentPW(String s_password) throws Exception {
+		// TODO Auto-generated method stub
+		return studentDAO.updateStudentPW(s_password);
+		
+	}
 }
 

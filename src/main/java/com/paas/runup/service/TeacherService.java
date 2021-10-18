@@ -24,13 +24,13 @@ public class TeacherService implements TeacherDAO {
 	}
 	
 	@Override /*선생님 전체 목록 삽입*/
-	public void insertTeacher(String t_id, String t_name, Date t_birth, boolean t_gender,String t_school,String t_password,String t_email) throws Exception {
-		teacherDAO.insertTeacher(t_id,t_name,t_birth,t_gender,t_school,t_password,t_email);
+	public void insertTeacher(TeacherDTO t) throws Exception {
+		teacherDAO.insertTeacher(t);
 	}
 	
 	@Override /*선생님 전체 목록 갱신*/
-	public void updateTeacher(String t_id, String t_name, Date t_birth, boolean t_gender,String t_school,String t_password,String t_email) throws Exception{
-		teacherDAO.updateTeacher(t_id,t_name,t_birth,t_gender,t_school,t_password,t_email);
+	public void updateTeacher(TeacherDTO t) throws Exception{
+		teacherDAO.updateTeacher(t);
 	}
 	
 	@Override /*선생님 전체 목록 삭제*/
@@ -42,5 +42,24 @@ public class TeacherService implements TeacherDAO {
 	public TeacherDTO getTeacherByIDPW(String t_id, String t_password) throws Exception {
 		// TODO Auto-generated method stub
 		return teacherDAO.getTeacherByIDPW(t_id, t_password); //아이디 비번 select
+	}
+	
+	@Override /*선생님 아이디 찾기*/
+	public TeacherDTO searchTeacherID(String t_name, String t_email) throws Exception {
+		// TODO Auto-generated method stub
+		return teacherDAO.searchTeacherID(t_name, t_email); 
+	}
+	
+	@Override /*선생님 비밀번호 찾기*/
+	public TeacherDTO searchTeacherPW(String t_name, String t_id, String t_email) throws Exception {
+		// TODO Auto-generated method stub
+		return teacherDAO.searchTeacherPW(t_name, t_id, t_email); 
+	}
+	
+	@Override /*선생님 비밀번호 재설정*/
+	public TeacherDTO updateTeacherPW(String t_password) throws Exception {
+		// TODO Auto-generated method stub
+		return teacherDAO.updateTeacherPW(t_password);
+		
 	}
 }

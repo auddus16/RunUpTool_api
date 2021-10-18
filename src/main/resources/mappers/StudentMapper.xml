@@ -10,8 +10,8 @@
   </select>
   
   <insert id="insertStudent">
-  	INSERT INTO STUDENT 
-  	VALUES (#{s_id},#{s_name},#{s_birth},#{s_gender},#{s_school},#{s_grade},#{s_class},#{s_password},#{s_email})
+  	INSERT INTO STUDENT(s_no,s_id,s_name,s_birth,s_gender,s_school,s_grade,s_class,s_password,s_email)
+  	VALUES (#{s_no},#{s_id},#{s_name},#{s_birth},#{s_gender},#{s_school},#{s_grade},#{s_class},#{s_password},#{s_email})
   </insert>
   
   <update id="updateStudent">
@@ -29,6 +29,30 @@
   	SELECT * 
   	FROM STUDENT
   	WHERE s_id = #{s_id} AND s_password=#{s_password}
+  	
+  </select>
+  
+  <select id="searchStudentID" resultType="com.paas.runup.dto.StudentDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
+						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->
+  	SELECT * 
+  	FROM STUDENT
+  	WHERE s_name = #{s_name} AND s_email=#{s_email}
+  	
+  </select>
+  
+  <select id="searchStudentPW" resultType="com.paas.runup.dto.StudentDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
+						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->
+  	SELECT * 
+  	FROM STUDENT
+  	WHERE s_name = #{s_name} AND s_id=#{s_id} AND s_email=#{s_email}
+  	
+  </select>
+  
+  <select id="updateStudentPW" resultType="com.paas.runup.dto.StudentDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
+						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->
+  	UPDATE STUDENT 
+  	SET s_password=#{s_password}
+  	WHERE s_no=#{s_no}
   	
   </select>
 	

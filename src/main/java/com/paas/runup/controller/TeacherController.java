@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +40,7 @@ public class TeacherController {
 	private JwtService jwtService;
 	
 	@ApiOperation("선생님 - 마이페이지 조회")
+	@ApiImplicitParam(name="t_no", value="선생님 번호", example = "1")
 	@RequestMapping(value= "/getTeacherList", method=RequestMethod.GET)
 	public List<TeacherDTO> getTeacherAll(int t_no) throws Exception{
 		System.out.println("선생님테이블 전체 검색 메소드-START");
@@ -46,21 +48,19 @@ public class TeacherController {
 		return teacherList;
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@ApiOperation("선생님 - 회원가입")
 	@RequestMapping(value= "/signupTeacher", method=RequestMethod.POST)
 	@ResponseBody
-	public void signupTeacher(String t_id, String t_name, Date t_birth, boolean t_gender,String t_school,String t_password,String t_email) throws Exception{
+	public void signupTeacher(@PathVariable int t_no, @RequestBody TeacherDTO t) throws Exception{
 		System.out.println("선생님테이블 삽입 메소드-START");
-		teacherService.insertTeacher(t_id, t_name, t_birth, t_gender, t_school,t_password,t_email);
+		teacherService.insertTeacher(t);
 	}
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@ApiOperation("선생님 - 회원정보 수정")
 	@RequestMapping(value= "/updateTeacher", method=RequestMethod.PUT)
-	public void updateTeacher(String t_id, String t_name, Date t_birth, boolean t_gender,String t_school,String t_password,String t_email) throws Exception{
+	public void updateTeacher(@RequestBody TeacherDTO t) throws Exception{
 		System.out.println("선생님테이블 갱신 메소드-START");
-		teacherService.updateTeacher(t_id, t_name, t_birth, t_gender, t_school,t_password,t_email);
+		teacherService.updateTeacher(t);
 	}
 
 	@ApiOperation("선생님 - 회원정보 탈퇴")
@@ -98,5 +98,42 @@ public class TeacherController {
         }
         
     }
+    
+    @ApiOperation(value = "선생님 - 아이디찾기")
+    @RequestMapping(value = "/searchTeacherID", method= RequestMethod.GET)
+    public void searchTeacherID(@PathVariable String t_name, @PathVariable String t_email ) throws Exception {
+		System.out.println("선생님아이디찾기 메소드-START");
+		TeacherDTO teacherDTO = teacherService.searchTeacherID(t_name, t_email);
+		
+		if (teacherDTO != null) {
+			System.out.println("선생님 회원정보 있음");
+		}
+		else {
+			System.out.println("선생님 회원정보 없음");
+		}
+			
+	}
+    
+    @ApiOperation(value = "선생님 - 비밀번호찾기")
+    @RequestMapping(value = "/searchTeacherPW", method= RequestMethod.GET)
+    public void searchTeacherPW(@PathVariable String t_name, @PathVariable String t_id, @PathVariable String t_email ) throws Exception {
+		System.out.println("선생님비밀번호찾기 메소드-START");
+		TeacherDTO teacherDTO = teacherService.searchTeacherPW(t_name, t_id, t_email);
+		
+		if (teacherDTO != null) {
+			System.out.println("선생님 회원정보 있음");
+		}
+		else {
+			System.out.println("선생님 회원정보 없음");
+		}
+			
+	}
+    
+    @ApiOperation(value="선생님 - 비밀번호재설정")
+	@RequestMapping(value="/updateSTeacherPW", method=RequestMethod.PUT)
+	public void uupdateSTeacherPW(@PathVariable int t_no, @PathVariable String t_password) throws Exception{
+    	System.out.println("선생님비밀번호재설정 메소드-START");
+    	teacherService.updateTeacherPW(t_password);
+	}
 	
 }
