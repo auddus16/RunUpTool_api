@@ -8,7 +8,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AttendDTO {
+public class AttendDTO{
 	/*
 	A_NO INT PRIMARY KEY AUTO_INCREMENT,
 	S_NO INT NOT NULL,
@@ -39,8 +39,15 @@ public class AttendDTO {
 	@ApiModelProperty(name = "a_time", value = "출석 시간", example = "yyyy-MM-dd hh:mm:ss", hidden=true)
 	private String a_time;
 	
-	//private StudentDTO student; 
+	@ApiModelProperty(name = "s_name", value = "학생 이름", example = "김학생")
+	private String s_name; //조인 속성 값
 	
+	public String getS_name() {
+		return s_name;
+	}
+	public void setStudent(String s_name) {
+		this.s_name = s_name;
+	}
 	public int getA_no() {
 		return a_no;
 	}

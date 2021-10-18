@@ -1,13 +1,16 @@
 package com.paas.runup.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.paas.runup.dto.AttendDTO;
 
 public interface AttendDAO {
-	List<AttendDTO> selectAttendByDate(String day) throws Exception;//날짜로 등록 조회
+	List<AttendDTO> selectAttendByDate(Map<String, Object> hm) throws Exception;//날짜로 등록 조회
 	
 	AttendDTO selectAttend(int s_no, int c_no) throws Exception;
+	
+	List<AttendDTO> selectAttendList(int s_no, int c_no) throws Exception;
 	
 	int updateAttend(AttendDTO a) throws Exception; //전체 갱신
 	

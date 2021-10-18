@@ -5,8 +5,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import javax.mail.internet.ParseException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,7 +60,7 @@ public class AttendController {
 //		//1. 출결테이블에 학생이름을 추가????
 //	}
 	
-	@ApiOperation(value= "선생님 - 출결시작하기", notes="선생님이 출결을 시작한다.")
+	@ApiOperation(value= "선생님 - 출결 시작하기", notes="선생님이 출결을 시작한다.")
 	@ApiImplicitParam(name="c_no", value="수업 번호", dataType = "int", example= "1")
 	@RequestMapping(value = "/{c_no}", method = RequestMethod.POST)
 	public boolean startAttend(@PathVariable int c_no) throws Exception {

@@ -1,6 +1,7 @@
 package com.paas.runup.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class AttendService implements AttendDAO{
 	AttendDAO attendDAO;
 	
 	@Override
-	public List<AttendDTO> selectAttendByDate(String day) throws Exception {
+	public List<AttendDTO> selectAttendByDate(Map<String, Object> hm) throws Exception {
 		// TODO Auto-generated method stub
-		return attendDAO.selectAttendByDate(day);
+		return attendDAO.selectAttendByDate(hm);
 	}
 
 	@Override
@@ -56,6 +57,12 @@ public class AttendService implements AttendDAO{
 	public int insertAttend(int s_no, int c_no) throws Exception {
 		// TODO Auto-generated method stub
 		return attendDAO.insertAttend(s_no, c_no);
+	}
+
+	@Override
+	public List<AttendDTO> selectAttendList(int s_no, int c_no) throws Exception {
+		// TODO Auto-generated method stub
+		return attendDAO.selectAttendList(s_no, c_no);
 	}
 
 }
