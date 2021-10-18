@@ -32,8 +32,8 @@
   	UPDATE ATTEND SET A_STATE = #{a_state}, A_TIME = #{a_time} WHERE A_NO = #{a_no}
   </update>
   
-  <update id="updateAttendTime" parameterType="com.paas.runup.dto.AttendDTO">
-  	UPDATE ATTEND SET A_STATE = NOW() WHERE A_NO = #{a_no}
+  <update id="updateAttendState" parameterType="com.paas.runup.dto.AttendDTO">
+  	UPDATE ATTEND SET A_STATE = #{a_state} WHERE A_NO = #{a_no}
   </update>
   
 
