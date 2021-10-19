@@ -45,6 +45,7 @@ public class JwtTokenUtil {
     }
 
     public String generateToken(String id, Map<String, Object> claims) {
+    	System.out.println(claims);
         return doGenerateToken(id, claims);
     }
 

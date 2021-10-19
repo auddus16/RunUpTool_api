@@ -5,7 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.DatatypeConverter;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.paas.runup.dto.AttendDTO;
 import com.paas.runup.dto.ClassDTO;
 import com.paas.runup.dto.RegisterDTO;
+import com.paas.runup.dto.StudentDTO;
 import com.paas.runup.email.EmailUtil;
 import com.paas.runup.service.AttendService;
 import com.paas.runup.service.ClassService;
 import com.paas.runup.service.RegisterService;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -234,13 +242,18 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 		return true;
 	}
 	
+	/*
+	 * claim 쓰는 법!!!!
+	 * */
 	@ApiOperation(value="학생 - 수업 리스트 조회", notes="학생의 수업 리스트를 조회한다.")
 	@RequestMapping(value= "/student", method= RequestMethod.GET)
-	public List<ClassDTO> getClassList2() throws Exception{
+	public List<ClassDTO> getClassList2(HttpServletRequest request) throws Exception{
 		
 		System.out.println("수업 리스트 조회 메소드 시작");
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
+				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
 		
-		int s_no= 1;//++s_no는 세션값 저장
+		int s_no= (int) claims.get("s_no");//++s_no는 세션값 저장
 		
 		List<RegisterDTO> registerList= registerService.selRegisterAllByStudent(s_no);//등록 테이블 먼저 검색
 		
@@ -249,6 +262,7 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 			System.out.println(r.getC_no());
 			classList.add(classService.selectClassByClass(r.getC_no()));
 		}
+		
 		
 		return classList;
 	}

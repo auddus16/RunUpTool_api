@@ -1,5 +1,8 @@
 package com.paas.runup.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,7 +31,16 @@ public class JwtAuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         final StudentDTO member = userDetailService.authenticateByEmailAndPassword
                 (authenticationRequest.getEmail(), authenticationRequest.getPassword());
-        final String token = "Bearer "+jwtTokenUtil.generateToken(member.getS_email());
+        
+        Map<String, Object> map = new HashMap<String, Object>();
+        
+        map.put("s_id", member.getS_id());
+        map.put("s_password", member.getS_password());
+        map.put("s_no", member.getS_no());
+        map.put("s_email", member.getS_email());
+        map.put("s_name", member.getS_name());
+        
+        final String token = "Bearer "+jwtTokenUtil.generateToken(member.getS_email(), map);
         return ResponseEntity.ok(new JwtResponse(token));
     }
 
