@@ -40,14 +40,32 @@ public class QuizCheckDTO {
 	@ApiModelProperty(name = "qc_state", value = "퀴즈 제출 여부", example = "true")
 	private boolean qc_state;
 	
-	@ApiModelProperty(name = "qc_time", value = "퀴즈 제출 날짜",example = "2021-10-10")
+	@ApiModelProperty(name = "qc_time", value = "퀴즈 제출 날짜",example = "2021-10-10", hidden=true)
 //	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd hh:mm:ss", timezone="Asia/Seoul")
 	private String qc_time;
 	
 	@ApiModelProperty(name = "qc_ans", value = "퀴즈 제출 답안", example = "apple")
 	private String qc_ans;
 	
+	@ApiModelProperty(name = "s_name", value = "학생 이름", example = "김학생")
+	private String s_name; //조인 속성 값
 	
+	@ApiModelProperty(name = "q_ques", value = "퀴즈 문제", example = "사과를 영어로?")
+	private String q_ques; //조인 속성 값
+	
+	
+	public String getQ_ques() {
+		return q_ques;
+	}
+	public void setQ_ques(String q_ques) {
+		this.q_ques = q_ques;
+	}
+	public String getS_name() {
+		return s_name;
+	}
+	public void setS_name(String s_name) {
+		this.s_name = s_name;
+	}
 	public int getQc_no() {
 		return qc_no;
 	}
@@ -84,5 +102,6 @@ public class QuizCheckDTO {
 	public void setQc_ans(String qc_ans) {
 		this.qc_ans = qc_ans;
 	}
+	
 
 }
