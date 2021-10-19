@@ -3,6 +3,9 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.paas.runup.dao.StudentDAO"><!--namespace를 통해 DAO와 연결합니다. -->
+  	<select id="findByEmail" resultType="com.paas.runup.dto.StudentDTO">
+  		SELECT * FROM STUDENT WHERE S_EMAIL = #{s_email}
+  	</select>
   		
   <select id="getStudentList" resultType="com.paas.runup.dto.StudentDTO"><!-- selectUsers()메서드를 호출하면 실행할 SELECT문이며, 
 						UserDTO 객체를 파라미터로 받아, UserDTO객체를 반환합니다.-->

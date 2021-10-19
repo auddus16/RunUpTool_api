@@ -1,7 +1,7 @@
 package com.paas.runup.dao;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +17,5 @@ public interface StudentDAO {
 	StudentDTO searchStudentID(String s_name,String s_email) throws Exception;
 	StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception;
 	StudentDTO updateStudentPW(String s_password) throws Exception;
+	Optional<StudentDTO> findByEmail(String s_email) throws Exception;
 }

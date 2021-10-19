@@ -1,14 +1,14 @@
 package com.paas.runup.service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.paas.runup.dao.StudentDAO;
-import com.paas.runup.dto.QuizDTO;
 import com.paas.runup.dto.StudentDTO;
 
 @Service
@@ -18,6 +18,9 @@ public class StudentService implements StudentDAO {
 	@Autowired
 	StudentDAO studentDAO;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override /*학생 전체 목록 조회*/
 	public List<StudentDTO> getStudentList(int s_no) throws Exception {
 		return studentDAO.getStudentList(s_no);
@@ -25,6 +28,7 @@ public class StudentService implements StudentDAO {
 	
 	@Override /*학생 전체 목록 삽입*/
 	public void insertStudent(StudentDTO s) throws Exception {
+		s.setS_password(passwordEncoder.encode(s.getS_password()));
 		studentDAO.insertStudent(s);
 	}
 	
@@ -61,6 +65,12 @@ public class StudentService implements StudentDAO {
 		// TODO Auto-generated method stub
 		return studentDAO.updateStudentPW(s_password);
 		
+	}
+
+	@Override
+	public Optional<StudentDTO> findByEmail(String s_email) throws Exception {
+		// TODO Auto-generated method stub
+		return studentDAO.findByEmail(s_email);
 	}
 }
 
