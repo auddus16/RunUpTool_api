@@ -60,9 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/api/member").permitAll()
+                .authorizeRequests().antMatchers("/login", "/api/member").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
-                .antMatchers("/", "/student/signupStudent", "/student/loginStudent/**").permitAll()
+                .antMatchers("/", "/student/signupStudent", "/teacher/signupTeacher").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
@@ -81,7 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
                             "/swagger-resources", "/configuration/security",
 
-                            "/swagger-ui/index.html", "/webjars/**","/swagger/**");
+                            "/swagger-ui/**", "/webjars/**","/swagger/**", "configuration/**");
 
     }
     

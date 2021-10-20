@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.paas.runup.dto.AttendDTO;
 import com.paas.runup.dto.ClassDTO;
 import com.paas.runup.dto.RegisterDTO;
-import com.paas.runup.dto.StudentDTO;
 import com.paas.runup.email.EmailUtil;
 import com.paas.runup.service.AttendService;
 import com.paas.runup.service.ClassService;
@@ -57,11 +54,15 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 	
 	@ApiOperation(value="선생님 - 수업 리스트 조회", notes="선생님의 수업 리스트를 조회한다.")
 	@RequestMapping(value= "/teacher", method= RequestMethod.GET)
-	public List<ClassDTO> getClassList() throws Exception{
+	public List<ClassDTO> getClassList(HttpServletRequest request) throws Exception{
 		
 		System.out.println("수업 리스트 조회 메소드 시작");
 		//선생님 번호로 수업리스트 검색
-		int t_no= 1;//++t_no는 세션값 저장
+		
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
+				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
+		
+		int t_no= (int) claims.get("user_no");//++t_no는 세션값 저장
 		
 		return classService.selectClassByTeacher(t_no);
 	}
@@ -139,11 +140,14 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 	
 	@ApiOperation(value= "선생님 - 새로운 수업 추가", notes="선생님이 새로운 수업을 생성한다.")
 	@RequestMapping(value = "/teacher/new", method = RequestMethod.POST)
-	public boolean addNewClass(@RequestBody ClassDTO c) throws Exception {
+	public boolean addNewClass(HttpServletRequest request, @RequestBody ClassDTO c) throws Exception {
 		
 		System.out.println("새로운 수업 추가 메소드 시작");
-
-		c.setT_no(1);// ++세션에 저장된 선생님 번호로 c.setT_no(---)
+		
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
+				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
+		
+		c.setT_no((int) claims.get("user_no"));// ++세션에 저장된 선생님 번호로 c.setT_no(---)
 		
 		if (classService.insertClass(c) == 0) {
 			System.out.println("새로운 수업 추가 실패!!");
@@ -164,16 +168,19 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 		@ApiImplicitParam(name="c_name", value="수업 이름", dataType = "String", example= "수학1반")
 	})
 	@RequestMapping(value= "/teacher/email/{c_name}", method = RequestMethod.POST)
-	public boolean saveLocation(@RequestBody HashMap<String, List<Object>> emailMap, @PathVariable String c_name) {
+	public boolean saveLocation(HttpServletRequest request, @RequestBody HashMap<String, List<Object>> emailMap, @PathVariable String c_name) {
 		System.out.println("학생 초대 메소드 시작");
 		
 		List<Object> emailList= new ArrayList<Object>();
 		emailList= emailMap.get("email");
 		
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
+				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
+		
 		//++선생님 이름(로그인 정보), 수업 정보를 이메일에 함께 넣어보자.
 		//학생이 존재하나요??-굳이 해야하나?
 		for(Object s : emailList) {
-			emailUtil.sendEmail((String)s, "RunUpTool 수업 초대", "초대 테스트 메일 입니다.");
+			emailUtil.sendEmail((String)s, "[RunUpTool 수업 초대]"+claims.get("user_name")+" 님이 수업 초대를 하셨습니다.", "초대 테스트 메일 입니다.");
 			System.out.println((String)s+"초대합니다.");
 		}
 		
@@ -253,7 +260,7 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
 				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
 		
-		int s_no= (int) claims.get("s_no");//++s_no는 세션값 저장
+		int s_no= (int) claims.get("user_no");//++s_no는 세션값 저장
 		
 		List<RegisterDTO> registerList= registerService.selRegisterAllByStudent(s_no);//등록 테이블 먼저 검색
 		
@@ -269,11 +276,14 @@ public class ClassController { //선생님, 학생 - 수업 관리 (수업, 출�
 	
 	@ApiOperation(value="학생 - 수업 출결 조회", notes="학생의 수업 출결 리스트를 조회한다.")
 	@RequestMapping(value= "/student/attend/{c_no}", method= RequestMethod.GET)
-	public List<AttendDTO> getAttendList(@PathVariable int c_no) throws Exception{
+	public List<AttendDTO> getAttendList(HttpServletRequest request, @PathVariable int c_no) throws Exception{
 		
 		System.out.println("수업 출결 조회 메소드 시작");
 		
-		int s_no= 4;//++s_no는 세션값 저장
+		Claims claims = Jwts.parser().setSigningKey(DatatypeConverter.parseBase64Binary("jwtpassword"))
+				.parseClaimsJws(request.getHeader("jwt").substring(7)).getBody();
+		
+		int s_no= (int) claims.get("user_no");//++s_no는 세션값 저장
 		
 		return attendService.selectAttendList(s_no, c_no);
 	}

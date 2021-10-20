@@ -1,9 +1,6 @@
 package com.paas.runup.dto;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +8,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class StudentDTO {
+public class StudentDTO{
 	/*
 	S_NO INT PRIMARY KEY AUTO_INCREMENT,
 	S_ID VARCHAR(20) NOT NULL, 
@@ -25,16 +22,34 @@ public class StudentDTO {
 	S_EMAIL VARCHAR(20) UNIQUE KEY NOT NULL
 	 */
 	
+	@ApiModelProperty(name = "s_no", value = "학생 번호", example = "1", hidden = true)
 	private int s_no;
+	
+	@ApiModelProperty(name = "s_id", value = "학생 아이디", example = "studentId")
 	private String s_id;
+	
+	@ApiModelProperty(name = "s_name", value = "학생 이름", example = "김학생")
 	private String s_name;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd", timezone="Asia/Seoul")
-	private Date s_birth;
+	
+	@ApiModelProperty(name = "s_birth", value = "학생 생년월일", example = "YYYY-MM-DD")
+	private String s_birth;
+	
+	@ApiModelProperty(name = "s_gender", value = "학생 성별(0:남자 1:여자)", example = "1")
 	private boolean s_gender;
+	
+	@ApiModelProperty(name = "s_school", value = "학생 학교", example = "XXX학교")
 	private String s_school;
+	
+	@ApiModelProperty(name = "s_grade", value = "학생 학년", example = "1")
 	private int s_grade;
+	
+	@ApiModelProperty(name = "s_class", value = "학생 반", example = "1")
 	private int s_class;
+	
+	@ApiModelProperty(name = "s_password", value = "학생 비밀번호", example = "studentPw")
 	private String s_password;
+	
+	@ApiModelProperty(name = "s_email", value = "학생 이메일", example = "XXXX@gmail.com")
 	private String s_email;
 
 	
@@ -56,10 +71,10 @@ public class StudentDTO {
 	public void setS_name(String s_name) {
 		this.s_name = s_name;
 	}
-	public Date getS_birth() {
+	public String getS_birth() {
 		return s_birth;
 	}
-	public void setS_birth(Date s_birth) {
+	public void setS_birth(String s_birth) {
 		this.s_birth = s_birth;
 	}
 	public boolean isS_gender() {

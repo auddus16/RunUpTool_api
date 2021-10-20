@@ -14,10 +14,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.paas.runup.dao.StudentDAO;
-import com.paas.runup.dto.StudentDTO;
+import com.paas.runup.dao.UserDAO;
 /*JwtUserDetailsService는 들어온 email으로 Member를 찾아서 결과적으로 User 객체를 반환해주는 역할 + 
  * 컨트롤러에서 넘어온 email과 password 값이 db에 저장된 비밀번호와 일치하는지 검사한다.*/
+import com.paas.runup.dto.UserDTO;
 
 @Service
 public class JwtUserDetailsService implements UserDetailsService {
@@ -26,14 +26,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private StudentDAO studentDAO;
+    private UserDAO userDAO;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        StudentDTO member= null;
+        UserDTO member= null;
         
 		try {
-			member = studentDAO.findByEmail(email)
+			member = (UserDTO) userDAO.findByEmail(email)
 			       .orElseThrow(() -> new UsernameNotFoundException(email));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -42,16 +42,17 @@ public class JwtUserDetailsService implements UserDetailsService {
         
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         
-        grantedAuthorities.add(new SimpleGrantedAuthority(member.getS_name()));
+        grantedAuthorities.add(new SimpleGrantedAuthority(member.getUser_name()));
         
-        return new User(member.getS_email(), member.getS_password(), grantedAuthorities);
+        System.out.println(member.getUser_name());
+        return new User(member.getUser_email(), member.getUser_password(), grantedAuthorities);
     }
 
-    public StudentDTO authenticateByEmailAndPassword(String email, String password) throws UsernameNotFoundException, Exception {
-    	StudentDTO member = studentDAO.findByEmail(email)
+    public UserDTO authenticateByEmailAndPassword(String email, String password) throws UsernameNotFoundException, Exception {
+    	UserDTO member = (UserDTO) userDAO.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException(email));
 
-        if(!passwordEncoder.matches(password, member.getS_password())) {
+        if(!passwordEncoder.matches(password, member.getUser_password())) {
             throw new BadCredentialsException("Password not matched");
         }
 

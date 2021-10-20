@@ -9,14 +9,19 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.paas.runup.dao.StudentDAO;
+import com.paas.runup.dao.UserDAO;
 import com.paas.runup.dto.StudentDTO;
+import com.paas.runup.dto.UserDTO;
 
 @Service
 @MapperScan(basePackages="com.paas.runup.dao")
-public class StudentService implements StudentDAO {
+public class StudentService implements StudentDAO, UserDAO {
 	
 	@Autowired
 	StudentDAO studentDAO;
+	
+	@Autowired
+	UserDAO userDAO;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -68,9 +73,9 @@ public class StudentService implements StudentDAO {
 	}
 
 	@Override
-	public Optional<StudentDTO> findByEmail(String s_email) throws Exception {
+	public Optional<UserDTO> findByEmail(String email) throws Exception {
 		// TODO Auto-generated method stub
-		return studentDAO.findByEmail(s_email);
+		return userDAO.findByEmail(email);
 	}
 }
 

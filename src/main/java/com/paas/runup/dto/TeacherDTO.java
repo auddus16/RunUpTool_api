@@ -1,13 +1,10 @@
 package com.paas.runup.dto;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import lombok.AllArgsConstructor;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class TeacherDTO {
@@ -20,14 +17,28 @@ public class TeacherDTO {
 //	T_PASSWORD VARCHAR(20) NOT NULL,
 //	T_EMAIL VARCHAR(20) NOT NULL
 	
+	@ApiModelProperty(name = "t_no", value = "선생님 번호", example = "1", hidden=true)
 	private int t_no; 
+	
+	@ApiModelProperty(name = "t_id", value = "선생님 아이디", example = "teacherId")
 	private String t_id;
+	
+	@ApiModelProperty(name = "t_name", value = "선생님 이름", example = "김선생")
 	private String t_name;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern= "yyyy-MM-dd", timezone="Asia/Seoul")
-	private Date t_birth;
+	
+	@ApiModelProperty(name = "t_birth", value = "선생님 생년월일", example = "YYYY-MM-DD")
+	private String t_birth;
+	
+	@ApiModelProperty(name = "t_gender", value = "선생님 성별(0:남자 1:여자)", example = "1")
 	private boolean t_gender;
+	
+	@ApiModelProperty(name = "t_school", value = "선생님 소속 학교", example = "XX학교")
 	private String t_school;
+	
+	@ApiModelProperty(name = "t_password", value = "선생님 비밀번호", example = "teacherPw")
 	private String t_password;
+	
+	@ApiModelProperty(name = "t_email", value = "선생님 이메일", example = "XXXX@gmail.com")
 	private String t_email;
 	
 	public int getT_no() {
@@ -48,11 +59,8 @@ public class TeacherDTO {
 	public void setT_name(String t_name) {
 		this.t_name = t_name;
 	}
-	public Date getT_birth() {
+	public String getT_birth() {
 		return t_birth;
-	}
-	public void setS_birth(Date t_birth) {
-		this.t_birth = t_birth;
 	}
 	public boolean isT_gender() {
 		return t_gender;
@@ -74,8 +82,5 @@ public class TeacherDTO {
 	}
 	public String getT_email() {
 		return t_email;
-	}
-	public void setS_email(String t_email) {
-		this.t_email = t_email;
 	}
 }

@@ -1,15 +1,17 @@
 package com.paas.runup.service;
 
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.paas.runup.dao.TeacherDAO;
-import com.paas.runup.dto.StudentDTO;
+import com.paas.runup.dao.UserDAO;
 import com.paas.runup.dto.TeacherDTO;
+import com.paas.runup.dto.UserDTO;
 
 @Service
 @MapperScan(basePackages="com.paas.runup.dao")
@@ -18,6 +20,12 @@ public class TeacherService implements TeacherDAO {
 	@Autowired
 	TeacherDAO teacherDAO;
 	
+	@Autowired
+	UserDAO userDAO;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	@Override /*선생님 전체 목록 조회*/
 	public List<TeacherDTO> getTeacherList(int t_no) throws Exception {
 		return teacherDAO.getTeacherList(t_no);
@@ -25,6 +33,7 @@ public class TeacherService implements TeacherDAO {
 	
 	@Override /*선생님 전체 목록 삽입*/
 	public void insertTeacher(TeacherDTO t) throws Exception {
+		t.setT_password(passwordEncoder.encode(t.getT_password()));
 		teacherDAO.insertTeacher(t);
 	}
 	
@@ -61,5 +70,11 @@ public class TeacherService implements TeacherDAO {
 		// TODO Auto-generated method stub
 		return teacherDAO.updateTeacherPW(t_password);
 		
+	}
+
+	@Override
+	public Optional<UserDTO> findByEmail(String email) throws Exception {
+		// TODO Auto-generated method stub
+		return userDAO.findByEmail(email);
 	}
 }
