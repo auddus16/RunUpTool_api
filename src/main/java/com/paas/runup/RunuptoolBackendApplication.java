@@ -9,6 +9,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.socket.server.standard.ServerEndpointExporter;
+
+import com.paas.runup.config.SwoomiWebSocketHandler;
+
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
@@ -28,4 +32,14 @@ public class RunuptoolBackendApplication {
 		
 		return sessionFactory.getObject();
 	}
+	
+	@Bean
+    public ServerEndpointExporter serverEndpointExporter() {
+        return new ServerEndpointExporter();
+    }
+	
+//	@Bean
+//	public SwoomiWebSocketHandler swoomiWebSocketHandler() {
+//	  return new SwoomiWebSocketHandler();
+//	}
 }

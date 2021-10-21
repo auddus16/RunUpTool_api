@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/login", "/api/member").permitAll()
+                .authorizeRequests().antMatchers("/login", "/api/member", "/ws/chat/**", "/websocket/**", "/chat/**", "/ws/**", "/ws/chat").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
                 .antMatchers("/", "/student/signupStudent", "/teacher/signupTeacher", "/student/searchStudentID", "/student/searchStudentPW").permitAll()
                 .anyRequest().authenticated()
