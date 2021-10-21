@@ -52,10 +52,7 @@ public class UserController {
     	System.out.println(member.getUser_name());
         Map<String, Object> map = new HashMap<String, Object>();
         
-        map.put("user_password", member.getUser_password());
         map.put("user_no", member.getUser_no());
-        map.put("user_email", member.getUser_email());
-        map.put("user_name", member.getUser_name());
         
         final String token = "Bearer "+jwtTokenUtil.generateToken(member.getUser_email(), map);
         
