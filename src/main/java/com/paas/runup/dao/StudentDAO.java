@@ -8,12 +8,13 @@ import com.paas.runup.dto.StudentDTO;
 
 @Repository
 public interface StudentDAO extends UserDAO{
-	public void insertStudent (StudentDTO s) throws Exception;
-	public void updateStudent (StudentDTO s) throws Exception;
-	public void deleteStudent (int s_no) throws Exception;
-	List<StudentDTO> getStudentList(int s_no) throws Exception; 
+	StudentDTO selectStudent(int s_no) throws Exception;
+	void insertStudent(StudentDTO student) throws Exception;
+	void updateStudent(StudentDTO student) throws Exception;
+	void deleteStudent(int s_no) throws Exception; 
+	
 	StudentDTO getStudentByIDPW(String s_id,String s_password) throws Exception;
-	StudentDTO searchStudentID(String s_name,String s_email) throws Exception;
+	String searchStudentID(String s_name,String s_email) throws Exception;
 	StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception;
 	StudentDTO updateStudentPW(String s_password) throws Exception;
 }

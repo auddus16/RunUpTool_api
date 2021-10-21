@@ -20,7 +20,7 @@
   
   <update id="updateQuiz" parameterType="com.paas.runup.dto.QuizDTO">
   	UPDATE QUIZ 
-  	SET q_ques=#{q_ques},q_ans=#{q_ans}, q_type=#{q_type}, q_timelimit=#{q_timelimit}
+  	SET q_ques=#{q_ques}, q_ans=#{q_ans}, q_type=#{q_type}, q_timelimit=#{q_timelimit}
   	WHERE q_no=#{q_no}
   </update>
   	

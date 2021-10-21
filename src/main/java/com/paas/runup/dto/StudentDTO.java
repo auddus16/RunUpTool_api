@@ -3,9 +3,11 @@ package com.paas.runup.dto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@AllArgsConstructor
+@NoArgsConstructor
+//@AllArgsConstructor
 @Getter
 @Setter
 public class StudentDTO{
@@ -77,7 +79,7 @@ public class StudentDTO{
 	public void setS_birth(String s_birth) {
 		this.s_birth = s_birth;
 	}
-	public boolean isS_gender() {
+	public boolean getS_gender() {
 		return s_gender;
 	}
 	public void setS_gender(boolean s_gender) {

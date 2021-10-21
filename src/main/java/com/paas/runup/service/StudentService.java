@@ -26,49 +26,57 @@ public class StudentService implements StudentDAO, UserDAO {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@Override /*학생 전체 목록 조회*/
-	public List<StudentDTO> getStudentList(int s_no) throws Exception {
-		return studentDAO.getStudentList(s_no);
-	}
 	
-	@Override /*학생 전체 목록 삽입*/
-	public void insertStudent(StudentDTO s) throws Exception {
-		s.setS_password(passwordEncoder.encode(s.getS_password()));
-		studentDAO.insertStudent(s);
-	}
-	
-	@Override /*학생 전체 목록 갱신*/
-	public void updateStudent(StudentDTO s) throws Exception{
-		studentDAO.updateStudent(s);
-	}
-	
-	@Override /*학생 전체 목록 삭제*/
-	public void deleteStudent(int s_no) throws Exception {
-		studentDAO.deleteStudent(s_no);
+
+	@Override
+	public StudentDTO selectStudent(int s_no) throws Exception {
+		// TODO Auto-generated method stub
+		StudentDTO student = studentDAO.selectStudent(s_no);
+		return student;
 	}
 
-	@Override /*로그인시 학생 목록 조회*/
+	@Override
+	public void insertStudent(StudentDTO student) throws Exception {
+		// TODO Auto-generated method stub
+		student.setS_password(passwordEncoder.encode(student.getS_password()));
+		studentDAO.insertStudent(student);
+	}
+
+	@Override
+	public void updateStudent(StudentDTO student) throws Exception {
+		// TODO Auto-generated method stub
+		studentDAO.updateStudent(student);
+	}
+
+	@Override
+	public void deleteStudent(int s_no) throws Exception {
+		// TODO Auto-generated method stub
+		studentDAO.deleteStudent(s_no);
+	}
+	
+	@Override
 	public StudentDTO getStudentByIDPW(String s_id, String s_password) throws Exception {
 		// TODO Auto-generated method stub
 		return studentDAO.getStudentByIDPW(s_id, s_password); //아이디 비번 select
 	}
 	
-	@Override /*학생 아이디 찾기*/
-	public StudentDTO searchStudentID(String s_name, String s_email) throws Exception {
+	@Override
+	public String searchStudentID(String s_name, String s_email) throws Exception {
 		// TODO Auto-generated method stub
 		return studentDAO.searchStudentID(s_name, s_email); 
 	}
 	
-	@Override /*학생 비밀번호 찾기*/
+	@Override
 	public StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception {
 		// TODO Auto-generated method stub
 		return studentDAO.searchStudentPW(s_name, s_id, s_email); 
 	}
 	
-	@Override /*학생 비밀번호 재설정*/
+	@Override
 	public StudentDTO updateStudentPW(String s_password) throws Exception {
 		// TODO Auto-generated method stub
-		return studentDAO.updateStudentPW(s_password);
+		//비밀번호 인코딩
+		return studentDAO.updateStudentPW(passwordEncoder.encode(s_password));
 		
 	}
 
@@ -77,5 +85,7 @@ public class StudentService implements StudentDAO, UserDAO {
 		// TODO Auto-generated method stub
 		return userDAO.findByEmail(email);
 	}
+
+	
 }
 
