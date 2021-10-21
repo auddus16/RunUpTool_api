@@ -37,7 +37,7 @@ public class StudentController {
 
 	@ResponseBody
 
-	@ApiOperation(value = "학생 - 학생 정보 조회", notes = "s_no를 통해 학생 정보를 조회한다(학년, 반).")
+	@ApiOperation(value = "학생 - 학생 정보 조회", notes = "s_no를 통해 학생 정보를 조회한다.")
 	@ApiImplicitParam(name = "s_no", value = "학생 번호", example = "1")
 	@RequestMapping(value = "/getStudent/{s_no}", method = RequestMethod.GET)
 	public StudentDTO getStudent(@PathVariable int s_no) throws Exception {
@@ -46,6 +46,8 @@ public class StudentController {
 		return studentService.selectStudent(s_no);
 	}
 
+	//이메일 인증코드 해야됨
+	//이메일 인증코드 뺄? 말?
 	@ApiOperation(value = "학생 - 회원가입", notes = "학생 회원가입을 한다.")
 	@RequestMapping(value = "/signupStudent", method = RequestMethod.POST)
 	public void signupStudent(@RequestBody StudentDTO student) throws Exception {
@@ -81,7 +83,7 @@ public class StudentController {
 		studentService.deleteStudent(s_no);
 	}
 
-	//권한 없이 실행가능해야함
+	
 	@ApiOperation(value = "학생 - 아이디 찾기", notes = "학생 아이디를 찾는다.")
 	@RequestMapping(value = "/searchStudentID", method = RequestMethod.GET)
 	public String searchStudentID(@RequestParam String s_name, @RequestParam String s_email) throws Exception {
@@ -100,7 +102,7 @@ public class StudentController {
 
 	}
 
-	//권한 없이 실행가능해야함
+	//이메일 인증 해야됨
 	//이름, 아이디, 이메일 입력 -> 이메일 인증
 	@ApiOperation(value = "학생 - 비밀번호 찾기", notes = "학생 비밀번호를 찾는다.")
 	@RequestMapping(value = "/searchStudentPW", method = RequestMethod.GET)
