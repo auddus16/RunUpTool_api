@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/login", "/api/member", "/ws/chat/**", "/websocket/**", "/chat/**", "/ws/**", "/ws/chat").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll() // swagger
-                .antMatchers("/", "/student/signupStudent", "/teacher/signupTeacher", "/student/searchStudentID", "/student/searchStudentPW").permitAll()
+                .antMatchers("/**", "/student/signupStudent", "/teacher/signupTeacher", "/student/searchStudentID", "/student/searchStudentPW").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()

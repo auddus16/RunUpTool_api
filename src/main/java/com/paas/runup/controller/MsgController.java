@@ -14,15 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.paas.runup.dto.MsgRoom;
 import com.paas.runup.service.MsgService;
 
 import lombok.RequiredArgsConstructor;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
 @ServerEndpoint("/websocket")
 public class MsgController extends Socket{
@@ -31,12 +31,12 @@ public class MsgController extends Socket{
 	@Autowired
 	private MsgService msgService;
 
-	@PostMapping
+	@PostMapping("/createRoom")
 	public MsgRoom createRoom(@RequestParam String name) {
 		return msgService.createRoom(name);
 	}
 
-	@GetMapping
+	@GetMapping("/findAllRoom")
 	public List<MsgRoom> findAllRoom() {
 		return msgService.findAllRoom();
 	}
