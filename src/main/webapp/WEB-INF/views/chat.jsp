@@ -7,7 +7,7 @@
 <script type="text/javascript">
 	var g_webSocket = null;
 	window.onload = function() {
-    g_webSocket = new WebSocket("ws://localhost:8080/websocket");
+    g_webSocket = new WebSocket("ws://localhost:8080/ws");
     
     
     /**

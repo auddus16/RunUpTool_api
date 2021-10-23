@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;
 
-import com.paas.runup.config.SwoomiWebSocketHandler;
+import com.paas.runup.config.WebSocketHandler;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
@@ -42,4 +42,5 @@ public class RunuptoolBackendApplication {
 //	public SwoomiWebSocketHandler swoomiWebSocketHandler() {
 //	  return new SwoomiWebSocketHandler();
 //	}
+	
 }

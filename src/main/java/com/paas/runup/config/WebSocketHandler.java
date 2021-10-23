@@ -19,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SwoomiWebSocketHandler extends TextWebSocketHandler {
+public class WebSocketHandler extends TextWebSocketHandler {
 	
 	@Autowired
 	private MsgService msgService;
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	private Logger log = LoggerFactory.getLogger(SwoomiWebSocketHandler.class);
+	private Logger log = LoggerFactory.getLogger(WebSocketHandler.class);
 	
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {

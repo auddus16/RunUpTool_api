@@ -20,15 +20,15 @@ public class WebSocketConfig implements WebSocketConfigurer {
 //    }
 	
 	@Autowired
-	private SwoomiWebSocketHandler webSocketHandler;
+	private WebSocketHandler webSocketHandler;
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 		// TODO Auto-generated method stub
-		registry.addHandler(webSocketHandler, "/ws/chat").setAllowedOrigins("*");
+		registry.addHandler(webSocketHandler, "/websocket").setAllowedOrigins("*").withSockJS();
 	}
 
-	public WebSocketConfig(SwoomiWebSocketHandler webSocketHandler) {
+	public WebSocketConfig(WebSocketHandler webSocketHandler) {
 		super();
 		this.webSocketHandler = webSocketHandler;
 	}

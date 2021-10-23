@@ -32,12 +32,12 @@ public class MsgService {
 	
 	@PostConstruct
 	private void init() {
-		System.out.println("init 실행됨ㅁㅁ");
+		System.out.println("init 실행됨");
 		msgRooms = new LinkedHashMap<>();
 	}
 	
 	public List<MsgRoom> findAllRoom(){
-		System.out.println("findAllRoom실행됨");
+		System.out.println("findAllRoom 실행됨");
 		System.out.println(msgRooms.values());
 		return new ArrayList<>(msgRooms.values());
 	}
@@ -49,7 +49,7 @@ public class MsgService {
 	
 	public MsgRoom createRoom(String name) {
 		String roomId= name;
-		System.out.println(roomId);
+		System.out.println("새로운 룸 생성 :"+roomId);
 		
 		MsgRoom msgRoom = new MsgRoom(roomId);
 		msgRooms.put(roomId, msgRoom);
