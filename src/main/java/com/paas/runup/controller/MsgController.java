@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @ServerEndpoint("/websocket")
+@RequestMapping("/room")
 public class MsgController extends Socket{
 	
 	//private static final List<Session> session = new ArrayList<Session>();

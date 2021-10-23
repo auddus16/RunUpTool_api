@@ -41,7 +41,7 @@ public class AttendController {
 	
 	@ApiOperation(value= "선생님 - 출결 시작하기", notes="선생님이 출결을 시작한다.")
 	@ApiImplicitParam(name="c_no", value="수업 번호", dataType = "int", example= "1")
-	@RequestMapping(value = "/{c_no}", method = RequestMethod.POST)
+	@RequestMapping(value = "/start/{c_no}", method = RequestMethod.POST)
 	public boolean startAttend(@PathVariable int c_no) throws Exception {
 		
 		//수업별로 학생리스트 검색한 후, 그 학생들 출석테이블에 insert
@@ -66,7 +66,7 @@ public class AttendController {
 	@ApiImplicitParams({
       @ApiImplicitParam(name="c_no", value="수업 번호", dataType = "int", example= "1"),
 	})
-	@RequestMapping(value= "/{c_no}", method= RequestMethod.PUT)
+	@RequestMapping(value= "/check/{c_no}", method= RequestMethod.PUT)
 	public boolean modifyClass(HttpServletRequest request, @PathVariable int c_no) throws Exception {
 		//먼저 오늘 출석시작한 수업에서 자신의 레코드를 검색한다.
 		//그 레코드의 출석시작검색해준다.
