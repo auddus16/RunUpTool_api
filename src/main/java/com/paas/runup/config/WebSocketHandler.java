@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
@@ -34,9 +35,8 @@ public class WebSocketHandler extends TextWebSocketHandler {
 		log.info("payload:{}", payload);
 
 		Message msg = objectMapper.readValue(payload, Message.class);
-		MsgRoom room = msgService.findbyId(msg.getRoomId());
+		MsgRoom room = msgService.selectMsgRoomId(msg.getRoomId());
+		
 		room.handleActions(session, msg, msgService);
 	}
-	
-
 }

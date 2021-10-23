@@ -9,14 +9,23 @@ import com.paas.runup.service.MsgService;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
 @Setter
 //@Builder
 public class MsgRoom {
-	
+	/**
+	CREATE TABLE MSGROOM(
+    ROOMID VARCHAR(10) PRIMARY KEY
+	);
+	 */
+	//c_no를 String으로 변환하여 roomId로 사용한다.
 	private String roomId;
+	
+	//DB에 저장할 필요 없음.
 	private Set<WebSocketSession> sessions= new HashSet<>();
 	
 	@Builder
@@ -52,5 +61,7 @@ public class MsgRoom {
 	public void setRoomId(String roomId) {
 		this.roomId = roomId;
 	}
+	
+	
 
 }
