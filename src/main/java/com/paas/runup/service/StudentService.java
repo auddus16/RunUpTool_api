@@ -16,76 +16,75 @@ import com.paas.runup.dto.UserDTO;
 @Service
 @MapperScan(basePackages="com.paas.runup.dao")
 public class StudentService implements StudentDAO, UserDAO {
-	
-	@Autowired
-	StudentDAO studentDAO;
-	
-	@Autowired
-	UserDAO userDAO;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	
-	
+   
+   @Autowired
+   StudentDAO studentDAO;
+   
+   @Autowired
+   UserDAO userDAO;
+   
+   @Autowired
+   private PasswordEncoder passwordEncoder;
+   
+   
 
-	@Override
-	public StudentDTO selectStudent(int s_no) throws Exception {
-		// TODO Auto-generated method stub
-		StudentDTO student = studentDAO.selectStudent(s_no);
-		return student;
-	}
+   @Override
+   public StudentDTO selectStudent(int s_no) throws Exception {
+      // TODO Auto-generated method stub
+      StudentDTO student = studentDAO.selectStudent(s_no);
+      return student;
+   }
 
-	@Override
-	public void insertStudent(StudentDTO student) throws Exception {
-		// TODO Auto-generated method stub
-		student.setS_password(passwordEncoder.encode(student.getS_password()));
-		studentDAO.insertStudent(student);
-	}
+   @Override
+   public void insertStudent(StudentDTO student) throws Exception {
+      // TODO Auto-generated method stub
+      student.setS_password(passwordEncoder.encode(student.getS_password()));
+      studentDAO.insertStudent(student);
+   }
 
-	@Override
-	public void updateStudent(StudentDTO student) throws Exception {
-		// TODO Auto-generated method stub
-		studentDAO.updateStudent(student);
-	}
+   @Override
+   public void updateStudent(StudentDTO student) throws Exception {
+      // TODO Auto-generated method stub
+      studentDAO.updateStudent(student);
+   }
 
-	@Override
-	public void deleteStudent(int s_no) throws Exception {
-		// TODO Auto-generated method stub
-		studentDAO.deleteStudent(s_no);
-	}
-	
-	@Override
-	public StudentDTO getStudentByIDPW(String s_id, String s_password) throws Exception {
-		// TODO Auto-generated method stub
-		return studentDAO.getStudentByIDPW(s_id, s_password); //아이디 비번 select
-	}
-	
-	@Override
-	public String searchStudentID(String s_name, String s_email) throws Exception {
-		// TODO Auto-generated method stub
-		return studentDAO.searchStudentID(s_name, s_email); 
-	}
-	
-	@Override
-	public StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception {
-		// TODO Auto-generated method stub
-		return studentDAO.searchStudentPW(s_name, s_id, s_email); 
-	}
-	
-	@Override
-	public StudentDTO updateStudentPW(String s_password) throws Exception {
-		// TODO Auto-generated method stub
-		//비밀번호 인코딩
-		return studentDAO.updateStudentPW(passwordEncoder.encode(s_password));
-		
-	}
+   @Override
+   public void deleteStudent(int s_no) throws Exception {
+      // TODO Auto-generated method stub
+      studentDAO.deleteStudent(s_no);
+   }
+   
+   @Override
+   public StudentDTO getStudentByIDPW(String s_id, String s_password) throws Exception {
+      // TODO Auto-generated method stub
+      return studentDAO.getStudentByIDPW(s_id, s_password); //아이디 비번 select
+   }
+   
+   @Override
+   public String searchStudentID(String s_name, String s_email) throws Exception {
+      // TODO Auto-generated method stub
+      return studentDAO.searchStudentID(s_name, s_email); 
+   }
+   
+   @Override
+   public StudentDTO searchStudentPW(String s_name, String s_id, String s_email) throws Exception {
+      // TODO Auto-generated method stub
+      return studentDAO.searchStudentPW(s_name, s_id, s_email); 
+   }
+   
+   @Override
+   public StudentDTO updateStudentPW(String s_password) throws Exception {
+      // TODO Auto-generated method stub
+      //비밀번호 인코딩
+      return studentDAO.updateStudentPW(passwordEncoder.encode(s_password));
+      
+   }
 
-	@Override
-	public Optional<UserDTO> findByEmail(String email) throws Exception {
-		// TODO Auto-generated method stub
-		return userDAO.findByEmail(email);
-	}
+   @Override
+   public Optional<UserDTO> findByEmail(String email) throws Exception {
+      // TODO Auto-generated method stub
+      return userDAO.findByEmail(email);
+   }
 
-	
+   
 }
-
