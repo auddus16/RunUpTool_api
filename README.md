@@ -29,9 +29,11 @@
 ![image](https://user-images.githubusercontent.com/59945024/160120086-70d95b23-a293-464e-af42-a4064478b276.png)
 
 [DB 설계]
+
 ![image](https://user-images.githubusercontent.com/59945024/160120136-d6c645c4-1b3a-4693-a3a5-2cabc77ab055.png)
 
 [화면 예시]
+
 ![image](https://user-images.githubusercontent.com/59945024/160120187-9571d28d-9233-40aa-87a6-d579fc1916ad.png)
 ![image](https://user-images.githubusercontent.com/59945024/160120211-efc03365-91dd-4a66-9eda-45abfeba95c3.png)
 ![image](https://user-images.githubusercontent.com/59945024/160120253-db1133d0-7908-4624-b00e-3bedc00185d6.png)
