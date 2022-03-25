@@ -19,6 +19,12 @@
 
 [출처] [소통광장-학습격차]③ 교사·학부모·학생, 코로나시대 교육을 말하다 < 소통광장 학습격차 < 사회 < 기사본문 - 뉴스포스트 (newspost.kr), 적나라하게 드러난 팬데믹 시대 교육 불평등 - 시사IN (sisain.co.kr)
 
+### 역할분담
+#### 박예진 : (Backend)PM, Restful API 개발, 클라우드 환경 구축
+#### 김윤진 : (Backend)Restful API 개발, 클라우드 환경 구축
+#### 황명연 : (Backend)Restful API 개발, 클라우드 환경 구축
+#### 김성은 : (Frontend)UI설계 및 개발
+
 ### 개발환경 구성
 
 사용언어: Java, Javascript, JSON
